@@ -3,452 +3,302 @@
 // ============================================================
 
 const CATS = {
-  portrait:    { label: "Ritratto & Moda",  abbr: "Ritratto",  bg: [152,53,86],   sym: [240,153,123], border: [113,43,19]  },
-  landscape:   { label: "Paesaggio & Nat.", abbr: "Paesaggio", bg: [15,110,86],   sym: [93,202,165],  border: [8,80,65]    },
-  street:      { label: "Strada & Sport",   abbr: "Strada",    bg: [83,74,183],   sym: [175,169,236], border: [60,52,137]  },
-  documentary: { label: "Documentario",     abbr: "Doc.",      bg: [186,117,23],  sym: [250,199,117], border: [99,56,6]    },
-  abstract:    { label: "Astratto & F.Art", abbr: "Astratto",  bg: [212,83,126],  sym: [237,147,177], border: [114,36,62]  },
-  science:     { label: "Scientifico",      abbr: "Scienza",   bg: [23,95,165],   sym: [133,183,235], border: [12,68,124]  },
-  commercial:  { label: "Comm. & Still",    abbr: "Comm.",     bg: [99,153,34],   sym: [151,196,89],  border: [39,80,10]   },
+  science:     { label:"Scientifico",      abbr:"Scienza",   bg:[23,95,165],   sym:[133,183,235], border:[12,68,124]  },
+  landscape:   { label:"Architettura",     abbr:"Archit.",   bg:[15,110,86],   sym:[93,202,165],  border:[8,80,65]    },
+  nature:      { label:"Naturalistica",    abbr:"Natura",    bg:[50,140,40],   sym:[130,210,100], border:[25,90,15]   },
+  landscape2:  { label:"Paesaggio",        abbr:"Paesaggio", bg:[15,110,86],   sym:[93,202,165],  border:[8,80,65]    },
+  astro:       { label:"Astrofotografia",  abbr:"Astro",     bg:[28,28,100],   sym:[120,130,220], border:[15,15,70]   },
+  travel:      { label:"Viaggio",          abbr:"Viaggio",   bg:[180,100,20],  sym:[240,180,90],  border:[110,60,8]   },
+  documentary: { label:"Documentaristica", abbr:"Doc.",      bg:[186,117,23],  sym:[250,199,117], border:[99,56,6]    },
+  events:      { label:"Eventi",           abbr:"Eventi",    bg:[100,60,150],  sym:[180,150,220], border:[65,35,110]  },
+  action:      { label:"Azione",           abbr:"Azione",    bg:[200,60,30],   sym:[240,150,120], border:[130,35,12]  },
+  street:      { label:"Urbana",           abbr:"Urbana",    bg:[83,74,183],   sym:[175,169,236], border:[60,52,137]  },
+  portrait:    { label:"Ritratto",         abbr:"Ritratto",  bg:[152,53,86],   sym:[240,153,123], border:[113,43,19]  },
+  nude:        { label:"Nudo",             abbr:"Nudo",      bg:[170,80,110],  sym:[230,160,190], border:[110,45,70]  },
+  fashion:     { label:"Moda",             abbr:"Moda",      bg:[212,83,126],  sym:[237,147,177], border:[114,36,62]  },
+  stilllife:   { label:"Still Life",       abbr:"Still L.",  bg:[99,153,34],   sym:[151,196,89],  border:[39,80,10]   },
+  abstract:    { label:"Astratta",         abbr:"Astratto",  bg:[140,100,180], sym:[200,170,230], border:[90,60,130]  },
+  fineart:     { label:"Fine Art",         abbr:"Fine Art",  bg:[80,60,50],    sym:[175,155,130], border:[50,35,25]   },
+  technique:   { label:"Tecniche",         abbr:"Tecniche",  bg:[40,40,40],    sym:[180,180,180], border:[80,80,80]   },
 };
 
-let GENRES = [
-  { id:1,  symbol:'Rs',  name:'Ritratto in studio',  cat:'portrait',  row:1, col:1,
-    desc:'Realizzato in ambiente controllato, con luce artificiale o naturale modellata, fondali neutri o tematici. Privilegia l\'isolamento del soggetto e la cura formale dell\'illuminazione (light shaping). Posa costruita.',
-    maestri:'Nadar, Julia Margaret Cameron, August Sander, Yousuf Karsh, Irving Penn, Richard Avedon, Annie Leibovitz, Diane Arbus, Steve McCurry, Platon, Martin Schoeller',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Soggetto isolato su fondo neutro, illuminazione studiata', categoria:'Fotografia di Ritratto' },
-  { id:2,  symbol:'Ra',  name:'Ritratto ambientale (Environmental Portrait)',  cat:'portrait',  row:1, col:2,
-    desc:'Il soggetto è ritratto nel proprio contesto di vita o lavoro: l\'ambiente diventa elemento narrativo che ne rivela ruolo, mestiere e identità sociale.',
-    maestri:'Nadar, Julia Margaret Cameron, August Sander, Yousuf Karsh, Irving Penn, Richard Avedon, Annie Leibovitz, Diane Arbus, Steve McCurry, Platon, Martin Schoeller',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Soggetto nel proprio ambiente di lavoro o vita quotidiana', categoria:'Fotografia di Ritratto' },
-  { id:3,  symbol:'Au',  name:'Autoritratto (Self-portrait)',  cat:'portrait',  row:1, col:3,
-    desc:'Il fotografo è insieme soggetto e oggetto. Strumento di indagine identitaria, esistenziale o di costruzione di personae.',
-    maestri:'Nadar, Julia Margaret Cameron, August Sander, Yousuf Karsh, Irving Penn, Richard Avedon, Annie Leibovitz, Diane Arbus, Steve McCurry, Platon, Martin Schoeller',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Il fotografo riflesso in uno specchio o ritratto da sé stesso', categoria:'Fotografia di Ritratto' },
-  { id:4,  symbol:'Rg',  name:'Ritratto di gruppo',  cat:'portrait',  row:1, col:4,
-    desc:'Più persone legate da relazioni familiari, professionali o sociali. Richiede gestione complessa di posa, sguardi e gerarchie compositive.',
-    maestri:'Nadar, Julia Margaret Cameron, August Sander, Yousuf Karsh, Irving Penn, Richard Avedon, Annie Leibovitz, Diane Arbus, Steve McCurry, Platon, Martin Schoeller',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Gruppo di persone in posa o in modo naturale', categoria:'Fotografia di Ritratto' },
-  { id:5,  symbol:'Hc',  name:'Headshot e ritratto corporate',  cat:'portrait',  row:1, col:5,
-    desc:'Ritratto formale, busto o mezzo busto, su fondo neutro, destinato a uso professionale.',
-    maestri:'Nadar, Julia Margaret Cameron, August Sander, Yousuf Karsh, Irving Penn, Richard Avedon, Annie Leibovitz, Diane Arbus, Steve McCurry, Platon, Martin Schoeller',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Primo piano o busto su sfondo neutro, stile professionale', categoria:'Fotografia di Ritratto' },
-  { id:6,  symbol:'Rc',  name:'Ritratto candid',  cat:'portrait',  row:1, col:6,
-    desc:'Non posato, spesso colto a soggetto inconsapevole. Si avvicina alla street e al fotogiornalismo.',
-    maestri:'Nadar, Julia Margaret Cameron, August Sander, Yousuf Karsh, Irving Penn, Richard Avedon, Annie Leibovitz, Diane Arbus, Steve McCurry, Platon, Martin Schoeller',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Soggetto colto in modo spontaneo, senza posa', categoria:'Fotografia di Ritratto' },
-  { id:7,  symbol:'Rp',  name:'Ritratto psicologico / d\'autore',  cat:'portrait',  row:1, col:7,
-    desc:'Punta alla restituzione profonda della soggettività, spesso con resa formalmente scarna ma intensa, talvolta perturbante.',
-    maestri:'Nadar, Julia Margaret Cameron, August Sander, Yousuf Karsh, Irving Penn, Richard Avedon, Annie Leibovitz, Diane Arbus, Steve McCurry, Platon, Martin Schoeller',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Ritratto intenso e psicologicamente denso, spesso in bianco e nero', categoria:'Fotografia di Ritratto' },
-  { id:8,  symbol:'Bg',  name:'Boudoir e glamour',  cat:'portrait',  row:1, col:8,
-    desc:'Ritrattistica intima e sensuale, con forte cura di luce, trucco e abiti.',
-    maestri:'Nadar, Julia Margaret Cameron, August Sander, Yousuf Karsh, Irving Penn, Richard Avedon, Annie Leibovitz, Diane Arbus, Steve McCurry, Platon, Martin Schoeller',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Ritratto intimo o patinato, luce morbida e cura estetica', categoria:'Fotografia di Ritratto' },
-  { id:9,  symbol:'Fe',  name:'Fashion editoriale',  cat:'portrait',  row:1, col:9,
-    desc:'Servizi narrativi pubblicati su riviste (Vogue, Harper\'s Bazaar, W). Ampio margine creativo, tematizzazione, storytelling.',
-    maestri:'Edward Steichen, Cecil Beaton, Horst P. Horst, Richard Avedon, Irving Penn, Helmut Newton, Guy Bourdin, Peter Lindbergh, Steven Meisel, Mario Testino, Patrick Demarchelier, David LaChapelle, Tim Walker, Paolo Roversi',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Servizio moda narrativo e tematizzato su rivista', categoria:'Fotografia di Moda' },
-  { id:10,  symbol:'Hm',  name:'Alta moda (Haute Couture)',  cat:'portrait',  row:1, col:10,
-    desc:'Iconografia delle collezioni couture: forte cura del set, abito come scultura, pose statuarie.',
-    maestri:'Edward Steichen, Cecil Beaton, Horst P. Horst, Richard Avedon, Irving Penn, Helmut Newton, Guy Bourdin, Peter Lindbergh, Steven Meisel, Mario Testino, Patrick Demarchelier, David LaChapelle, Tim Walker, Paolo Roversi',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Modella in abito couture su set curato e pose statuarie', categoria:'Fotografia di Moda' },
-  { id:11,  symbol:'Be',  name:'Beauty',  cat:'portrait',  row:1, col:11,
-    desc:'Volti, pelle, trucco, capelli in primissimo piano. Forte cura della luce e dei dettagli.',
-    maestri:'Edward Steichen, Cecil Beaton, Horst P. Horst, Richard Avedon, Irving Penn, Helmut Newton, Guy Bourdin, Peter Lindbergh, Steven Meisel, Mario Testino, Patrick Demarchelier, David LaChapelle, Tim Walker, Paolo Roversi',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Primo piano di volto con attenzione a trucco, pelle e capelli', categoria:'Fotografia di Moda' },
-  { id:12,  symbol:'Cl',  name:'Catalogo e lookbook',  cat:'portrait',  row:1, col:12,
-    desc:'Funzione commerciale: presentazione chiara del prodotto. Set neutri, luce piana.',
-    maestri:'Edward Steichen, Cecil Beaton, Horst P. Horst, Richard Avedon, Irving Penn, Helmut Newton, Guy Bourdin, Peter Lindbergh, Steven Meisel, Mario Testino, Patrick Demarchelier, David LaChapelle, Tim Walker, Paolo Roversi',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Modella in abito su fondo neutro con luce piana', categoria:'Fotografia di Moda' },
-  { id:13,  symbol:'Ag',  name:'Avant-garde fashion',  cat:'portrait',  row:1, col:13,
-    desc:'Sperimentazione visiva spinta, contaminazione con surrealismo, performance, fashion come linguaggio artistico.',
-    maestri:'Edward Steichen, Cecil Beaton, Horst P. Horst, Richard Avedon, Irving Penn, Helmut Newton, Guy Bourdin, Peter Lindbergh, Steven Meisel, Mario Testino, Patrick Demarchelier, David LaChapelle, Tim Walker, Paolo Roversi',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Set sperimentale con elementi surreali o visivamente estremi', categoria:'Fotografia di Moda' },
-  { id:14,  symbol:'Sk',  name:'Street fashion',  cat:'portrait',  row:1, col:14,
-    desc:'Documenta la moda in the wild: stile reale, sfilate viste fuori dalle passerelle, persone comuni come icone di stile.',
-    maestri:'Edward Steichen, Cecil Beaton, Horst P. Horst, Richard Avedon, Irving Penn, Helmut Newton, Guy Bourdin, Peter Lindbergh, Steven Meisel, Mario Testino, Patrick Demarchelier, David LaChapelle, Tim Walker, Paolo Roversi',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Persone stilose fotografate in strada fuori dalle sfilate', categoria:'Fotografia di Moda' },
-  { id:15,  symbol:'Na',  name:'Nudo artistico',  cat:'portrait',  row:1, col:15,
-    desc:'Approccio plastico-formale, scultoreo. Corpo come paesaggio o forma astratta.',
-    maestri:'Eadweard Muybridge, Edward Weston, Imogen Cunningham, Bill Brandt, Lucien Clergue, Helmut Newton, Robert Mapplethorpe, Ruth Bernhard, Spencer Tunick',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Corpo nudo fotografato come forma scultorea o paesaggio', categoria:'Fotografia di Nudo' },
-  { id:16,  symbol:'Ne',  name:'Nudo erotico / glamour',  cat:'portrait',  row:1, col:16,
-    desc:'Componente sensuale o esplicita prevalente, spesso al confine con la moda.',
-    maestri:'Eadweard Muybridge, Edward Weston, Imogen Cunningham, Bill Brandt, Lucien Clergue, Helmut Newton, Robert Mapplethorpe, Ruth Bernhard, Spencer Tunick',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Nudo con connotazione sensuale e cura estetica della luce', categoria:'Fotografia di Nudo' },
-  { id:17,  symbol:'Bo',  name:'Boudoir',  cat:'portrait',  row:1, col:17,
-    desc:'Nudo intimo in interni, con soggetti privati.',
-    maestri:'Eadweard Muybridge, Edward Weston, Imogen Cunningham, Bill Brandt, Lucien Clergue, Helmut Newton, Robert Mapplethorpe, Ruth Bernhard, Spencer Tunick',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Nudo in ambiente intimo domestico con luce morbida', categoria:'Fotografia di Nudo' },
-  { id:18,  symbol:'Nm',  name:'Nudo di massa / corpo politico',  cat:'portrait',  row:1, col:18,
-    desc:'Corpi nudi come soggetto collettivo, con valenza estetica, politica o di occupazione dello spazio.',
-    maestri:'Eadweard Muybridge, Edward Weston, Imogen Cunningham, Bill Brandt, Lucien Clergue, Helmut Newton, Robert Mapplethorpe, Ruth Bernhard, Spencer Tunick',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Folla di persone nude in spazio pubblico (installazione)', categoria:'Fotografia di Nudo' },
-  { id:19,  symbol:'Ns',  name:'Nudo scientifico e del movimento',  cat:'portrait',  row:2, col:1,
-    desc:'Origini ottocentesche dello studio del corpo in azione. Antesignana del cinema.',
-    maestri:'Eadweard Muybridge, Edward Weston, Imogen Cunningham, Bill Brandt, Lucien Clergue, Helmut Newton, Robert Mapplethorpe, Ruth Bernhard, Spencer Tunick',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Sequenza cronofotografica di corpo in movimento', categoria:'Fotografia di Nudo' },
-  { id:20,  symbol:'Pn',  name:'Paesaggio naturale',  cat:'landscape',  row:2, col:2,
-    desc:'Soggetto sono montagne, deserti, foreste, fiumi, zone selvagge. Tradizione americana: previsualizzazione, zone system, grande formato.',
-    maestri:'Carleton Watkins, Eadweard Muybridge, Timothy O\'Sullivan, Ansel Adams, Edward Weston, Galen Rowell, Sebastião Salgado, Hiroshi Sugimoto, Andreas Gursky, Michael Kenna',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Montagna, deserto o foresta con luce naturale', categoria:'Fotografia di Paesaggio' },
-  { id:21,  symbol:'Pu',  name:'Paesaggio urbano (Cityscape)',  cat:'landscape',  row:2, col:3,
-    desc:'La città come organismo: skyline, architetture, vie, piazze. Spesso lavora con ore blu, ore d\'oro e luci notturne.',
-    maestri:'Carleton Watkins, Eadweard Muybridge, Timothy O\'Sullivan, Ansel Adams, Edward Weston, Galen Rowell, Sebastião Salgado, Hiroshi Sugimoto, Andreas Gursky, Michael Kenna',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Skyline o vie urbane con luce dorata o notturna', categoria:'Fotografia di Paesaggio' },
-  { id:22,  symbol:'Se',  name:'Seascape (paesaggio marino)',  cat:'landscape',  row:2, col:4,
-    desc:'Mare e costa come soggetto. Spesso lavora sull\'orizzonte, la lunga esposizione e la riduzione formale.',
-    maestri:'Carleton Watkins, Eadweard Muybridge, Timothy O\'Sullivan, Ansel Adams, Edward Weston, Galen Rowell, Sebastião Salgado, Hiroshi Sugimoto, Andreas Gursky, Michael Kenna',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Orizzonte marino con lunga esposizione, acqua seta', categoria:'Fotografia di Paesaggio' },
-  { id:23,  symbol:'Nt',  name:'Paesaggio notturno',  cat:'landscape',  row:2, col:5,
-    desc:'Lunghe esposizioni, condizioni di scarsa luce, presenza di stelle, luna o luci artificiali.',
-    maestri:'Carleton Watkins, Eadweard Muybridge, Timothy O\'Sullivan, Ansel Adams, Edward Weston, Galen Rowell, Sebastião Salgado, Hiroshi Sugimoto, Andreas Gursky, Michael Kenna',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Paesaggio sotto cielo stellato o luce lunare con lunga esposizione', categoria:'Fotografia di Paesaggio' },
-  { id:24,  symbol:'Pa',  name:'Paesaggio aereo',  cat:'landscape',  row:2, col:6,
-    desc:'Vista dall\'alto (aereo, elicottero, drone). Tende a una grammatica per pattern e astrazione geometrica del territorio.',
-    maestri:'Carleton Watkins, Eadweard Muybridge, Timothy O\'Sullivan, Ansel Adams, Edward Weston, Galen Rowell, Sebastião Salgado, Hiroshi Sugimoto, Andreas Gursky, Michael Kenna',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Territorio visto dall\'alto con pattern geometrici', categoria:'Fotografia di Paesaggio' },
-  { id:25,  symbol:'Np',  name:'Paesaggio antropizzato (New Topographics)',  cat:'landscape',  row:2, col:7,
-    desc:'Territori modificati dall\'uomo (parcheggi, periferie, infrastrutture), ripresi senza enfasi estetica.',
-    maestri:'Carleton Watkins, Eadweard Muybridge, Timothy O\'Sullivan, Ansel Adams, Edward Weston, Galen Rowell, Sebastião Salgado, Hiroshi Sugimoto, Andreas Gursky, Michael Kenna',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Periferia, parcheggio o infrastruttura ripresi con distanza neutra', categoria:'Fotografia di Paesaggio' },
-  { id:26,  symbol:'Pm',  name:'Paesaggio minimalista',  cat:'landscape',  row:2, col:8,
-    desc:'Composizione ridotta a pochi elementi, ampi vuoti, riduzione tonale.',
-    maestri:'Carleton Watkins, Eadweard Muybridge, Timothy O\'Sullivan, Ansel Adams, Edward Weston, Galen Rowell, Sebastião Salgado, Hiroshi Sugimoto, Andreas Gursky, Michael Kenna',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Paesaggio essenziale con pochi elementi e ampi spazi vuoti', categoria:'Fotografia di Paesaggio' },
-  { id:27,  symbol:'Wl',  name:'Wildlife (fauna selvatica)',  cat:'landscape',  row:2, col:9,
-    desc:'Animali nel loro habitat. Si valutano comportamento, momento, luce, distanza.',
-    maestri:'Eliot Porter, Frans Lanting, Art Wolfe, Nick Brandt, Vincent Munier, Tim Laman, Steve Winter, David Doubilet, Cristina Mittermeier, Paul Nicklen',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Animale selvatico nel suo habitat naturale', categoria:'Fotografia Naturalistica' },
-  { id:28,  symbol:'Av',  name:'Avifauna (Bird Photography)',  cat:'landscape',  row:2, col:10,
-    desc:'Sottocategoria del wildlife dedicata agli uccelli: in volo, in habitat, in comportamento riproduttivo.',
-    maestri:'Eliot Porter, Frans Lanting, Art Wolfe, Nick Brandt, Vincent Munier, Tim Laman, Steve Winter, David Doubilet, Cristina Mittermeier, Paul Nicklen',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Uccello in volo o nel proprio habitat', categoria:'Fotografia Naturalistica' },
-  { id:29,  symbol:'Mk',  name:'Macro',  cat:'landscape',  row:2, col:11,
-    desc:'Riprende soggetti molto piccoli con forte ingrandimento. Lavora su profondità di campo ridotta, focus stacking.',
-    maestri:'Eliot Porter, Frans Lanting, Art Wolfe, Nick Brandt, Vincent Munier, Tim Laman, Steve Winter, David Doubilet, Cristina Mittermeier, Paul Nicklen',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Insetto o fiore ingrandito con profondità di campo ridotta', categoria:'Fotografia Naturalistica' },
-  { id:30,  symbol:'Sb',  name:'Subacquea',  cat:'landscape',  row:2, col:12,
-    desc:'Vita marina e ambienti sommersi.',
-    maestri:'Eliot Porter, Frans Lanting, Art Wolfe, Nick Brandt, Vincent Munier, Tim Laman, Steve Winter, David Doubilet, Cristina Mittermeier, Paul Nicklen',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Fauna marina o ambiente subacqueo con luce filtrata', categoria:'Fotografia Naturalistica' },
-  { id:31,  symbol:'Bt',  name:'Botanica e flora',  cat:'landscape',  row:2, col:13,
-    desc:'Piante, fiori, dettagli vegetali, isolati o in habitat.',
-    maestri:'Eliot Porter, Frans Lanting, Art Wolfe, Nick Brandt, Vincent Munier, Tim Laman, Steve Winter, David Doubilet, Cristina Mittermeier, Paul Nicklen',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Fiore o pianta con dettaglio botanico', categoria:'Fotografia Naturalistica' },
-  { id:32,  symbol:'Ae',  name:'Architettura esterni',  cat:'landscape',  row:2, col:14,
-    desc:'Edificio nel suo contesto, con luce naturale che ne modella i volumi.',
-    maestri:'Eugène Atget, Berenice Abbott, Julius Shulman, Ezra Stoller, Lucien Hervé, Bernd e Hilla Becher, Hélène Binet, Hiroshi Sugimoto, Iwan Baan, Candida Höfer, Andreas Gursky',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Edificio fotografato all\'esterno con luce naturale', categoria:'Fotografia di Architettura' },
-  { id:33,  symbol:'Ai',  name:'Architettura interni',  cat:'landscape',  row:2, col:15,
-    desc:'Spazi interni, materiali, arredi, atmosfere.',
-    maestri:'Eugène Atget, Berenice Abbott, Julius Shulman, Ezra Stoller, Lucien Hervé, Bernd e Hilla Becher, Hélène Binet, Hiroshi Sugimoto, Iwan Baan, Candida Höfer, Andreas Gursky',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Interno di edificio con luce diffusa e spazio simmetrico', categoria:'Fotografia di Architettura' },
-  { id:34,  symbol:'Ac',  name:'Architettura urbana e paesaggio costruito',  cat:'landscape',  row:2, col:16,
-    desc:'Si sovrappone al cityscape: si concentra sul tessuto urbano stratificato.',
-    maestri:'Eugène Atget, Berenice Abbott, Julius Shulman, Ezra Stoller, Lucien Hervé, Bernd e Hilla Becher, Hélène Binet, Hiroshi Sugimoto, Iwan Baan, Candida Höfer, Andreas Gursky',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Tessuto urbano stratificato, strade e facciate', categoria:'Fotografia di Architettura' },
-  { id:35,  symbol:'Td',  name:'Tipologica (Düsseldorf School)',  cat:'landscape',  row:2, col:17,
-    desc:'Inventario seriale di edifici/strutture dello stesso tipo, fotografate frontalmente con luce piatta.',
-    maestri:'Eugène Atget, Berenice Abbott, Julius Shulman, Ezra Stoller, Lucien Hervé, Bernd e Hilla Becher, Hélène Binet, Hiroshi Sugimoto, Iwan Baan, Candida Höfer, Andreas Gursky',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Serie di strutture simili (es. torri d\'acqua) in griglia comparativa', categoria:'Fotografia di Architettura' },
-  { id:36,  symbol:'Ar',  name:'Architettura industriale',  cat:'landscape',  row:2, col:18,
-    desc:'Stabilimenti, infrastrutture, archeologia industriale.',
-    maestri:'Eugène Atget, Berenice Abbott, Julius Shulman, Ezra Stoller, Lucien Hervé, Bernd e Hilla Becher, Hélène Binet, Hiroshi Sugimoto, Iwan Baan, Candida Höfer, Andreas Gursky',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Fabbrica, gasometro o infrastruttura industriale', categoria:'Fotografia di Architettura' },
-  { id:37,  symbol:'St',  name:'Street classica / del momento decisivo',  cat:'street',  row:3, col:1,
-    desc:'Codificata dalla scuola francese e dalla Magnum: composizione rigorosa, geometria, attesa del momento perfetto.',
-    maestri:'Henri Cartier-Bresson, Robert Doisneau, Walker Evans, Helen Levitt, Robert Frank, Garry Winogrand, Lee Friedlander, Joel Meyerowitz, William Klein, Saul Leiter, Vivian Maier, Daido Moriyama, Bruce Gilden, Alex Webb',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Scena urbana colta nel momento decisivo, bianco e nero', categoria:'Fotografia di Strada' },
-  { id:38,  symbol:'Sa',  name:'Street americana del dopoguerra',  cat:'street',  row:3, col:2,
-    desc:'Più cruda, energica, frammentaria. Sguardo errante e disilluso sull\'American Way of Life.',
-    maestri:'Henri Cartier-Bresson, Robert Doisneau, Walker Evans, Helen Levitt, Robert Frank, Garry Winogrand, Lee Friedlander, Joel Meyerowitz, William Klein, Saul Leiter, Vivian Maier, Daido Moriyama, Bruce Gilden, Alex Webb',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Strada americana con atmosfera grezza e spontanea', categoria:'Fotografia di Strada' },
-  { id:39,  symbol:'Sg',  name:'Street giapponese (cerchia Provoke)',  cat:'street',  row:3, col:3,
-    desc:'Linguaggio sgranato, sfocato, sovraesposto: estetica are, bure, boke della rivista Provoke (1968-69).',
-    maestri:'Henri Cartier-Bresson, Robert Doisneau, Walker Evans, Helen Levitt, Robert Frank, Garry Winogrand, Lee Friedlander, Joel Meyerowitz, William Klein, Saul Leiter, Vivian Maier, Daido Moriyama, Bruce Gilden, Alex Webb',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Scene urbane sgranate, sfocate, ad alto contrasto', categoria:'Fotografia di Strada' },
-  { id:40,  symbol:'Sc',  name:'Street a colori',  cat:'street',  row:3, col:4,
-    desc:'Riabilitazione del colore nel linguaggio fotografico autoriale a partire da fine anni \'50.',
-    maestri:'Henri Cartier-Bresson, Robert Doisneau, Walker Evans, Helen Levitt, Robert Frank, Garry Winogrand, Lee Friedlander, Joel Meyerowitz, William Klein, Saul Leiter, Vivian Maier, Daido Moriyama, Bruce Gilden, Alex Webb',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Scene di strada con uso espressivo del colore', categoria:'Fotografia di Strada' },
-  { id:41,  symbol:'Sf',  name:'Street ravvicinata e flash',  cat:'street',  row:3, col:5,
-    desc:'Approccio invadente, ravvicinato, spesso con flash diretto. Frontalità che viola il soggetto.',
-    maestri:'Henri Cartier-Bresson, Robert Doisneau, Walker Evans, Helen Levitt, Robert Frank, Garry Winogrand, Lee Friedlander, Joel Meyerowitz, William Klein, Saul Leiter, Vivian Maier, Daido Moriyama, Bruce Gilden, Alex Webb',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Ritratto ravvicinato con flash diretto in strada', categoria:'Fotografia di Strada' },
-  { id:42,  symbol:'As',  name:'Action sportiva',  cat:'street',  row:3, col:6,
-    desc:'Coglie il gesto agonistico nel suo apice. Richiede tempi rapidi, ottiche lunghe, anticipazione del momento.',
-    maestri:'Hy Peskin, Walter Iooss Jr., Neil Leifer, Robert Riger, Heinz Kluetmeier, Lyle Owerko',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Atleta in azione nel momento culminante della competizione', categoria:'Fotografia Sportiva' },
-  { id:43,  symbol:'Rsp',  name:'Ritratto sportivo',  cat:'street',  row:3, col:7,
-    desc:'Atleta come icona, in studio o in contesto.',
-    maestri:'Hy Peskin, Walter Iooss Jr., Neil Leifer, Robert Riger, Heinz Kluetmeier, Lyle Owerko',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Atleta ritratto in studio o in contesto sportivo', categoria:'Fotografia Sportiva' },
-  { id:44,  symbol:'Sx',  name:'Sport estremi / outdoor',  cat:'street',  row:3, col:8,
-    desc:'Arrampicata, surf, base jumping. Spesso fotografo è anche praticante.',
-    maestri:'Hy Peskin, Walter Iooss Jr., Neil Leifer, Robert Riger, Heinz Kluetmeier, Lyle Owerko',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Atleta in sport estremo (arrampicata, surf, alpinismo)', categoria:'Fotografia Sportiva' },
-  { id:45,  symbol:'Fj',  name:'Fotogiornalismo (News / Press)',  cat:'documentary',  row:3, col:9,
-    desc:'Copertura di eventi di cronaca per stampa periodica, agenzie, settimanali.',
-    maestri:'Mathew Brady, Jacob Riis, Lewis Hine, Walker Evans, Dorothea Lange, Robert Capa, W. Eugene Smith, Eve Arnold, Don McCullin, Larry Burrows, James Nachtwey, Sebastião Salgado, Susan Meiselas, Mary Ellen Mark, Gilles Peress',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Immagine iconica di evento di cronaca o notizia', categoria:'Fotografia Documentaria e Fotogiornalismo' },
-  { id:46,  symbol:'Gx',  name:'Fotografia di guerra e di conflitto',  cat:'documentary',  row:3, col:10,
-    desc:'Sottofamiglia del fotogiornalismo dedicata a guerre, conflitti armati, post-conflitto.',
-    maestri:'Mathew Brady, Jacob Riis, Lewis Hine, Walker Evans, Dorothea Lange, Robert Capa, W. Eugene Smith, Eve Arnold, Don McCullin, Larry Burrows, James Nachtwey, Sebastião Salgado, Susan Meiselas, Mary Ellen Mark, Gilles Peress',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Scene di conflitto armato, soldati, civili in guerra', categoria:'Fotografia Documentaria e Fotogiornalismo' },
-  { id:47,  symbol:'Cs',  name:'Fotografia sociale e umanitaria',  cat:'documentary',  row:3, col:11,
-    desc:'Documenta condizioni di disuguaglianza, povertà, sfruttamento, marginalità per finalità di denuncia.',
-    maestri:'Mathew Brady, Jacob Riis, Lewis Hine, Walker Evans, Dorothea Lange, Robert Capa, W. Eugene Smith, Eve Arnold, Don McCullin, Larry Burrows, James Nachtwey, Sebastião Salgado, Susan Meiselas, Mary Ellen Mark, Gilles Peress',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Persone in condizioni di povertà o marginalità sociale', categoria:'Fotografia Documentaria e Fotogiornalismo' },
-  { id:48,  symbol:'Et',  name:'Documentaria etnografica e antropologica',  cat:'documentary',  row:3, col:12,
-    desc:'Studia popolazioni, culture e modi di vita, spesso con rigore quasi tassonomico.',
-    maestri:'Mathew Brady, Jacob Riis, Lewis Hine, Walker Evans, Dorothea Lange, Robert Capa, W. Eugene Smith, Eve Arnold, Don McCullin, Larry Burrows, James Nachtwey, Sebastião Salgado, Susan Meiselas, Mary Ellen Mark, Gilles Peress',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Comunità indigena o tradizionale nel proprio contesto culturale', categoria:'Fotografia Documentaria e Fotogiornalismo' },
-  { id:49,  symbol:'Ld',  name:'Long-form documentary / saggio fotografico',  cat:'documentary',  row:3, col:13,
-    desc:'Progetti di lunga durata che evolvono in libro o mostra, con tema unitario e narrazione articolata.',
-    maestri:'Mathew Brady, Jacob Riis, Lewis Hine, Walker Evans, Dorothea Lange, Robert Capa, W. Eugene Smith, Eve Arnold, Don McCullin, Larry Burrows, James Nachtwey, Sebastião Salgado, Susan Meiselas, Mary Ellen Mark, Gilles Peress',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Serie narrativa su un tema unitario sviluppata nel tempo', categoria:'Fotografia Documentaria e Fotogiornalismo' },
-  { id:50,  symbol:'Ds',  name:'Documentaria storica e d\'archivio',  cat:'documentary',  row:3, col:14,
-    desc:'Documentazione di eventi e luoghi storici, anche con valore d\'archivio e ricostruzione.',
-    maestri:'Mathew Brady, Jacob Riis, Lewis Hine, Walker Evans, Dorothea Lange, Robert Capa, W. Eugene Smith, Eve Arnold, Don McCullin, Larry Burrows, James Nachtwey, Sebastião Salgado, Susan Meiselas, Mary Ellen Mark, Gilles Peress',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Immagine storica di archivio con valenza documentale', categoria:'Fotografia Documentaria e Fotogiornalismo' },
-  { id:51,  symbol:'Gm',  name:'Astratta geometrica e materica',  cat:'abstract',  row:3, col:15,
-    desc:'Astrazione che parte dal reale (muri, vegetazione, superfici) per estrarne pattern e gesti grafici.',
-    maestri:'Alvin Langdon Coburn, László Moholy-Nagy, Aaron Siskind, Harry Callahan, Minor White, Wolfgang Tillmans, Hiroshi Sugimoto',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Superficie o dettaglio di muro che diventa pattern astratto', categoria:'Fotografia Astratta' },
-  { id:52,  symbol:'Sp',  name:'Sperimentale e cameraless',  cat:'abstract',  row:3, col:16,
-    desc:'Immagini ottenute senza macchina fotografica: fotogrammi, chemigrammi, luminogrammi.',
-    maestri:'Alvin Langdon Coburn, László Moholy-Nagy, Aaron Siskind, Harry Callahan, Minor White, Wolfgang Tillmans, Hiroshi Sugimoto',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Fotogramma o impronta di oggetti su carta fotosensibile', categoria:'Fotografia Astratta' },
-  { id:53,  symbol:'Pi',  name:'Pittoricista / fotografia equivalent',  cat:'abstract',  row:3, col:17,
-    desc:'Immagini riconoscibili (nuvole, acqua) usate come metafora emotiva astratta.',
-    maestri:'Alvin Langdon Coburn, László Moholy-Nagy, Aaron Siskind, Harry Callahan, Minor White, Wolfgang Tillmans, Hiroshi Sugimoto',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Nuvole o acqua fotografate come metafore emotive', categoria:'Fotografia Astratta' },
-  { id:54,  symbol:'Vt',  name:'Staged / tableaux vivants',  cat:'abstract',  row:3, col:18,
-    desc:'Scene costruite e dirette dal fotografo, con attori, set, illuminazione cinematografica.',
-    maestri:'Alfred Stieglitz, Man Ray, Edward Weston, Diane Arbus, Cindy Sherman, Jeff Wall, Andreas Gursky, Hiroshi Sugimoto, Gregory Crewdson, Wolfgang Tillmans, Nan Goldin, Sally Mann',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Scena costruita e diretta come un tableau cinematografico', categoria:'Fotografia Fine Art e Concettuale' },
-  { id:55,  symbol:'Cp',  name:'Concettuale (puro)',  cat:'abstract',  row:4, col:1,
-    desc:'L\'idea conta più dell\'oggetto. La foto è documento di un\'operazione concettuale o seriale.',
-    maestri:'Alfred Stieglitz, Man Ray, Edward Weston, Diane Arbus, Cindy Sherman, Jeff Wall, Andreas Gursky, Hiroshi Sugimoto, Gregory Crewdson, Wolfgang Tillmans, Nan Goldin, Sally Mann',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Serie sistematica che documenta un\'operazione concettuale', categoria:'Fotografia Fine Art e Concettuale' },
-  { id:56,  symbol:'Su',  name:'Surrealista',  cat:'abstract',  row:4, col:2,
-    desc:'Erede del surrealismo storico: gioco con sogno, inconscio, doppio, manipolazione visiva.',
-    maestri:'Alfred Stieglitz, Man Ray, Edward Weston, Diane Arbus, Cindy Sherman, Jeff Wall, Andreas Gursky, Hiroshi Sugimoto, Gregory Crewdson, Wolfgang Tillmans, Nan Goldin, Sally Mann',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Composizione onirica con elementi incongrui e atmosfera surreale', categoria:'Fotografia Fine Art e Concettuale' },
-  { id:57,  symbol:'Di',  name:'Diaristica intima',  cat:'abstract',  row:4, col:3,
-    desc:'Documento autobiografico delle vite del fotografo e del proprio cerchio: amici, amanti, famiglia, malattia.',
-    maestri:'Alfred Stieglitz, Man Ray, Edward Weston, Diane Arbus, Cindy Sherman, Jeff Wall, Andreas Gursky, Hiroshi Sugimoto, Gregory Crewdson, Wolfgang Tillmans, Nan Goldin, Sally Mann',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Istantanea intima di vita quotidiana del fotografo e della sua cerchia', categoria:'Fotografia Fine Art e Concettuale' },
-  { id:58,  symbol:'Ap',  name:'Appropriazione e post-fotografia',  cat:'abstract',  row:4, col:4,
-    desc:'Riuso e citazione di immagini esistenti; dissoluzione del concetto di autorialità del singolo scatto.',
-    maestri:'Alfred Stieglitz, Man Ray, Edward Weston, Diane Arbus, Cindy Sherman, Jeff Wall, Andreas Gursky, Hiroshi Sugimoto, Gregory Crewdson, Wolfgang Tillmans, Nan Goldin, Sally Mann',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Fotografia rifotografata o appropriata da un\'altra immagine', categoria:'Fotografia Fine Art e Concettuale' },
-  { id:59,  symbol:'Sl',  name:'Still life d\'autore',  cat:'commercial',  row:4, col:5,
-    desc:'Oggetti come pretesto per ricerca formale, simbolica o materica.',
-    maestri:'Edward Steichen, Edward Weston, Irving Penn, Karl Blossfeldt, Paul Outerbridge, Robert Mapplethorpe, Wolfgang Tillmans, Laura Letinsky',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Composizione di oggetti con luce studiata e valenza estetica', categoria:'Fotografia Still Life' },
-  { id:60,  symbol:'Fo',  name:'Food',  cat:'commercial',  row:4, col:6,
-    desc:'Cibo come oggetto. Si articola tra editoriale (riviste, libri di cucina) e pubblicitario (packaging, brand).',
-    maestri:'Edward Steichen, Edward Weston, Irving Penn, Karl Blossfeldt, Paul Outerbridge, Robert Mapplethorpe, Wolfgang Tillmans, Laura Letinsky',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Cibo composto e illuminato con cura', categoria:'Fotografia Still Life' },
-  { id:61,  symbol:'Pr',  name:'Product',  cat:'commercial',  row:4, col:7,
-    desc:'Prodotti commerciali (orologi, bottiglie, cosmetici, automotive). Tecnica avanzata di luce, riflessi, post-produzione.',
-    maestri:'Edward Steichen, Edward Weston, Irving Penn, Karl Blossfeldt, Paul Outerbridge, Robert Mapplethorpe, Wolfgang Tillmans, Laura Letinsky',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Prodotto commerciale isolato con luce tecnica precisa', categoria:'Fotografia Still Life' },
-  { id:62,  symbol:'Tv',  name:'Tabletop e vanitas',  cat:'commercial',  row:4, col:8,
-    desc:'Composizioni su piano (tabletop). Vanitas riprende la tradizione barocca con simboli della caducità.',
-    maestri:'Edward Steichen, Edward Weston, Irving Penn, Karl Blossfeldt, Paul Outerbridge, Robert Mapplethorpe, Wolfgang Tillmans, Laura Letinsky',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Composizione con teschio, fiori appassiti o frutta marcia su piano', categoria:'Fotografia Still Life' },
-  { id:63,  symbol:'Uw',  name:'Fotografia subacquea',  cat:'landscape',  row:5, col:1,
-    desc:'Riprese sotto la superficie dell\'acqua. Richiede attrezzatura stagna, illuminazione dedicata, conoscenza dell\'ambiente marino.',
-    maestri:'David Doubilet, Paul Nicklen, Ernst Haas, Zena Holloway, Howard Schatz',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Fauna marina o diver in ambiente subacqueo con luce blu', categoria:'Fotografia Subacquea' },
-  { id:64,  symbol:'Dr',  name:'Fotografia aerea e da drone',  cat:'landscape',  row:5, col:2,
-    desc:'Vista zenitale o dall\'alto del territorio. Forte resa grafica.',
-    maestri:'Yann Arthus-Bertrand, Edward Burtynsky, Emmet Gowin, George Steinmetz, Cassio Vasconcellos',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Territorio visto dall\'alto con pattern e geometrie visibili', categoria:'Fotografia Aerea e da Drone' },
-  { id:65,  symbol:'Vg',  name:'Fotografia di viaggio',  cat:'landscape',  row:5, col:3,
-    desc:'Documenta luoghi, persone e culture in chiave esperienziale.',
-    maestri:'Steve McCurry, Jimmy Nelson, Michael Yamashita, Jodi Cobb, Cristina García Rodero',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Luogo, persona o rito culturale in contesto di viaggio', categoria:'Fotografia di Viaggio' },
-  { id:66,  symbol:'Nn',  name:'Fotografia notturna',  cat:'street',  row:5, col:4,
-    desc:'Lunghe esposizioni, alti ISO, luci artificiali. Soggetti: città, paesaggi, cieli, ritratti notturni.',
-    maestri:'Brassaï, Bill Brandt, Michael Kenna, Rut Blees Luxemburg, Todd Hido',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Scena notturna urbana o naturale con lunga esposizione', categoria:'Fotografia Notturna' },
-  { id:67,  symbol:'Wr',  name:'Matrimonio reportage',  cat:'documentary',  row:5, col:5,
-    desc:'Approccio narrativo non posato che documenta la giornata come reportage.',
-    maestri:'Jeff Ascough, Yervant Zanazanian, Jerry Ghionis',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Momento spontaneo durante una cerimonia di matrimonio', categoria:'Fotografia di Matrimonio ed Eventi' },
-  { id:68,  symbol:'Wf',  name:'Matrimonio editoriale e fine art',  cat:'documentary',  row:5, col:6,
-    desc:'Ispirazione fashion, set e luce curati, post-produzione raffinata.',
-    maestri:'Jeff Ascough, Yervant Zanazanian, Jerry Ghionis, José Villa',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Sposi in posa curata con luce cinematografica', categoria:'Fotografia di Matrimonio ed Eventi' },
-  { id:69,  symbol:'Ev',  name:'Eventi (corporate, pubblici)',  cat:'documentary',  row:5, col:7,
-    desc:'Conferenze, premiazioni, concerti, eventi politici. Affine al fotogiornalismo.',
-    maestri:'Jeff Ascough, Yervant Zanazanian, Jerry Ghionis, José Villa',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Evento pubblico o cerimonia con pubblico', categoria:'Fotografia di Matrimonio ed Eventi' },
-  { id:70,  symbol:'Dk',  name:'Cielo profondo (Deep Sky)',  cat:'science',  row:5, col:8,
-    desc:'Galassie, nebulose, ammassi stellari. Strumenti astronomici dedicati.',
-    maestri:'Babak Tafreshi, Marco Lorenzi, Petr Horálek, Adam Block',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Nebulosa o galassia con dettaglio ad alta risoluzione', categoria:'Astrofotografia' },
-  { id:71,  symbol:'Ss',  name:'Sistema solare (alta risoluzione)',  cat:'science',  row:5, col:9,
-    desc:'Sole, Luna, pianeti. Tecnica del lucky imaging.',
-    maestri:'Babak Tafreshi, Marco Lorenzi, Petr Horálek, Adam Block',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Pianeta (Giove, Saturno) con dettaglio ad alta risoluzione', categoria:'Astrofotografia' },
-  { id:72,  symbol:'Ng',  name:'Paesaggistica notturna (Nightscape)',  cat:'science',  row:5, col:10,
-    desc:'Cielo stellato e Via Lattea integrati nel paesaggio terrestre.',
-    maestri:'Babak Tafreshi, Marco Lorenzi, Petr Horálek, Adam Block',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Via Lattea sopra paesaggio naturale o montagna', categoria:'Astrofotografia' },
-  { id:73,  symbol:'Fs',  name:'Fotografia scientifica generale',  cat:'science',  row:5, col:11,
-    desc:'Documentazione di esperimenti, fenomeni, oggetti di laboratorio.',
-    maestri:'Harold Edgerton, Berenice Abbott, Lennart Nilsson, Wilhelm Röntgen, Alphonse Bertillon, Weegee, Eadweard Muybridge, Étienne-Jules Marey',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Fenomeno fisico catturato con stroboscopia (es. goccia d\'acqua)', categoria:'Fotografia Scientifica e Tecnica' },
-  { id:74,  symbol:'Mi',  name:'Microfotografia',  cat:'science',  row:5, col:12,
-    desc:'Soggetti molto piccoli, attraverso microscopio ottico o elettronico.',
-    maestri:'Harold Edgerton, Berenice Abbott, Lennart Nilsson, Wilhelm Röntgen, Alphonse Bertillon, Weegee, Eadweard Muybridge, Étienne-Jules Marey',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Cellula, cristallo o organismo microscopico visto al microscopio', categoria:'Fotografia Scientifica e Tecnica' },
-  { id:75,  symbol:'Mr',  name:'Fotografia medica e radiologica',  cat:'science',  row:5, col:13,
-    desc:'Documentazione clinica, dermatologica, chirurgica, radiografie.',
-    maestri:'Harold Edgerton, Berenice Abbott, Lennart Nilsson, Wilhelm Röntgen, Alphonse Bertillon, Weegee, Eadweard Muybridge, Étienne-Jules Marey',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Radiografia o immagine medica diagnostica', categoria:'Fotografia Scientifica e Tecnica' },
-  { id:76,  symbol:'Ff',  name:'Fotografia forense',  cat:'science',  row:5, col:14,
-    desc:'Scene del crimine, prove. Sistematizzata da Alphonse Bertillon con l\'antropometria e la segnaletica.',
-    maestri:'Harold Edgerton, Berenice Abbott, Lennart Nilsson, Wilhelm Röntgen, Alphonse Bertillon, Weegee, Eadweard Muybridge, Étienne-Jules Marey',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Scena urbana notturna di cronaca nera (stile Weegee)', categoria:'Fotografia Scientifica e Tecnica' },
-  { id:77,  symbol:'Cr',  name:'Cronofotografia',  cat:'science',  row:5, col:15,
-    desc:'Decomposizione del movimento in fotografie successive, antesignana del cinema.',
-    maestri:'Harold Edgerton, Berenice Abbott, Lennart Nilsson, Wilhelm Röntgen, Alphonse Bertillon, Weegee, Eadweard Muybridge, Étienne-Jules Marey',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Sequenza multipla di un movimento su una stessa lastra', categoria:'Fotografia Scientifica e Tecnica' },
-  { id:78,  symbol:'In',  name:'Fotografia industriale',  cat:'commercial',  row:5, col:16,
-    desc:'Documenta impianti, processi produttivi, infrastrutture, archeologia industriale.',
-    maestri:'Albert Renger-Patzsch, Charles Sheeler, Bernd e Hilla Becher, Edward Burtynsky, Sebastião Salgado, Gabriele Basilico',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Stabilimento industriale, torre o infrastruttura fotografata con rigore formale', categoria:'Fotografia Industriale' },
-  { id:79,  symbol:'Pc',  name:'Fotografia pubblicitaria e commerciale',  cat:'commercial',  row:5, col:17,
-    desc:'Realizzata per finalità di marketing: campagne, packaging, cataloghi, comunicazione di brand.',
-    maestri:'Erwin Blumenfeld, Irving Penn, Annie Leibovitz, David LaChapelle, Oliviero Toscani, Erik Almås',
-    photoCredit:'', photoDate:'', image:'', imageDesc:'Immagine pubblicitaria con prodotto o soggetto in set curato', categoria:'Fotografia Pubblicitaria e Commerciale' }
+const GENRE_GROUPS = [
+  { cat:'science', items:[
+    {id:1, symbol:'Sc',name:'Scientifica & Tecnica',  desc:'Strumento di indagine in ambito scientifico, medico, forense. Privilegia accuratezza e riproducibilità. Antesignana del cinema (cronofotografia).',imageDesc:'Fenomeno fisico catturato con stroboscopia o microscopio',categoria:'Scientifica & Tecnica'},
+    {id:2, symbol:'Sg',name:'Scientifica generale',   desc:'Documentazione di esperimenti, fenomeni, oggetti di laboratorio.',imageDesc:'Esperimento di laboratorio documentato con rigore',categoria:'Scientifica & Tecnica'},
+    {id:3, symbol:'Mi',name:'Microfotografia',        desc:'Soggetti molto piccoli, attraverso microscopio ottico o elettronico.',imageDesc:'Cellula o cristallo visto al microscopio',categoria:'Scientifica & Tecnica'},
+    {id:4, symbol:'Mr',name:'Medica & Radiologica',   desc:'Documentazione clinica, dermatologica, chirurgica, radiografie.',imageDesc:'Radiografia o immagine medica diagnostica',categoria:'Scientifica & Tecnica'},
+    {id:5, symbol:'Fr',name:'Forense',                desc:'Scene del crimine, prove. Pioniere: Alphonse Bertillon (fine XIX sec.).',imageDesc:'Documentazione forense di scena del crimine',categoria:'Scientifica & Tecnica'},
+    {id:6, symbol:'Cf',name:'Cronofotografia',        desc:'Decomposizione del movimento in fotografie successive, antesignana del cinema.',imageDesc:'Sequenza multipla di un movimento su una stessa lastra',categoria:'Scientifica & Tecnica'},
+  ]},
+  { cat:'landscape', items:[
+    {id:7, symbol:'Ar',name:'Architettura',           desc:'Edifici e spazi costruiti, con attenzione a forma, materiali, luce. Usa controllo prospettico (banco ottico, tilt-shift).',imageDesc:'Edificio fotografato con controllo della prospettiva',categoria:'Architettura'},
+    {id:8, symbol:'Ty',name:'Tipologica (Düsseldorf)',desc:'Inventario seriale di edifici/strutture dello stesso tipo, fotografate frontalmente con luce piatta.',imageDesc:'Serie di strutture simili in griglia comparativa',categoria:'Architettura'},
+    {id:9, symbol:'Ax',name:'Architettura esterni',   desc:'Edificio nel suo contesto, con luce naturale che ne modella i volumi.',imageDesc:"Edificio fotografato all'esterno con luce naturale",categoria:'Architettura'},
+    {id:10,symbol:'Ai',name:'Architettura interni',   desc:'Spazi interni, materiali, arredi, atmosfere.',imageDesc:'Interno di edificio con luce diffusa',categoria:'Architettura'},
+    {id:11,symbol:'Uc',name:'Arch. urbana & Costruito',desc:'Si concentra sul tessuto urbano stratificato.',imageDesc:'Tessuto urbano stratificato, strade e facciate',categoria:'Architettura'},
+  ]},
+  { cat:'nature', items:[
+    {id:12,symbol:'Nt',name:'Naturalistica',          desc:'Animali, piante, ecosistemi nel loro ambiente, spesso senza intervento umano visibile.',imageDesc:'Animale selvatico nel suo habitat',categoria:'Naturalistica'},
+    {id:13,symbol:'Bt',name:'Botanica & Flora',       desc:'Piante, fiori, dettagli vegetali, isolati o in habitat.',imageDesc:'Fiore o pianta con dettaglio botanico',categoria:'Naturalistica'},
+    {id:14,symbol:'Mk',name:'Macro',                  desc:'Soggetti molto piccoli con forte ingrandimento. Profondità di campo ridotta, focus stacking.',imageDesc:'Insetto ingrandito con profondità di campo ridotta',categoria:'Naturalistica'},
+    {id:15,symbol:'Bd',name:'Avifauna',               desc:'Sottocategoria del wildlife dedicata agli uccelli: in volo, in habitat, in comportamento riproduttivo.',imageDesc:'Uccello in volo o nel proprio habitat',categoria:'Naturalistica'},
+    {id:16,symbol:'Wl',name:'Wildlife',               desc:'Animali nel loro habitat. Si valutano comportamento, momento, luce, distanza.',imageDesc:'Animale selvatico nel suo habitat naturale',categoria:'Naturalistica'},
+    {id:17,symbol:'Fp',name:'Fauna polare & Cons.',   desc:'Fotografia della fauna polare e di ecosistemi sensibili, con finalità di conservazione.',imageDesc:'Fauna polare in ambiente artico o antartico',categoria:'Naturalistica'},
+  ]},
+  { cat:'landscape2', items:[
+    {id:18,symbol:'Ps',name:'Paesaggio',              desc:'Rappresentazione di spazi naturali o antropizzati, attenzione a luce, meteo, geografia.',imageDesc:'Paesaggio naturale con luce naturale',categoria:'Paesaggio'},
+    {id:19,symbol:'Nx',name:'New Topographics',       desc:"Filiazione critica del paesaggio americano: territori modificati dall'uomo, ripresi senza enfasi estetica.",imageDesc:'Periferia o parcheggio ripresi con distanza neutra',categoria:'Paesaggio'},
+    {id:20,symbol:'Pw',name:'Paesaggi atmosferici',   desc:'Derivazione del paesaggio focalizzata sui fenomeni atmosferici (tempeste, uragani, aurore, nebbie).',imageDesc:'Tempesta o aurora fotografata in paesaggio',categoria:'Paesaggio'},
+    {id:21,symbol:'Pn',name:'Paesaggio naturale',     desc:"Montagne, deserti, foreste, fiumi. Tradizione americana: previsualizzazione, zone system.",imageDesc:'Montagna, deserto o foresta con luce naturale',categoria:'Paesaggio'},
+    {id:22,symbol:'Sw',name:'Paesaggio marino',       desc:"Mare e costa come soggetto. Spesso lavora sull'orizzonte, la lunga esposizione.",imageDesc:'Orizzonte marino con lunga esposizione',categoria:'Paesaggio'},
+    {id:23,symbol:'Pt',name:'Paesaggio notturno',     desc:'Lunghe esposizioni, scarsa luce, stelle, luna o luci artificiali.',imageDesc:'Paesaggio sotto cielo stellato con lunga esposizione',categoria:'Paesaggio'},
+    {id:24,symbol:'Cs',name:'Paesaggio urbano',       desc:"La città come organismo: skyline, architetture, vie, piazze.",imageDesc:'Skyline urbano con luce dorata o notturna',categoria:'Paesaggio'},
+    {id:25,symbol:'Pa',name:'Paesaggio aereo',        desc:'Vista dall\'alto (aereo, elicottero, drone). Grammatica per pattern e astrazione geometrica.',imageDesc:'Territorio visto dall\'alto con pattern geometrici',categoria:'Paesaggio'},
+    {id:26,symbol:'Pm',name:'Paesaggio minimalista',  desc:'Composizione ridotta a pochi elementi, ampi vuoti, riduzione tonale.',imageDesc:'Paesaggio essenziale con pochi elementi',categoria:'Paesaggio'},
+  ]},
+  { cat:'astro', items:[
+    {id:27,symbol:'Af',name:'Astrofotografia',        desc:'Riprende corpi celesti, oggetti del cielo profondo o paesaggi notturni con cielo stellato.',imageDesc:'Nebulosa o galassia con dettaglio ad alta risoluzione',categoria:'Astrofotografia'},
+    {id:28,symbol:'Ds',name:'Cielo profondo',         desc:'Galassie, nebulose, ammassi stellari. Telescopi, montature equatoriali.',imageDesc:'Nebulosa o galassia ad alta risoluzione',categoria:'Astrofotografia'},
+    {id:29,symbol:'So',name:'Sistema solare',         desc:'Sole, Luna, pianeti. Tecnica del lucky imaging (migliaia di frame, selezione dei migliori).',imageDesc:'Pianeta (Giove, Saturno) con dettaglio ad alta risoluzione',categoria:'Astrofotografia'},
+    {id:30,symbol:'Ng',name:'Nightscape',             desc:'Cielo stellato e Via Lattea integrati nel paesaggio terrestre.',imageDesc:'Via Lattea sopra paesaggio naturale o montagna',categoria:'Astrofotografia'},
+  ]},
+  { cat:'travel', items:[
+    {id:31,symbol:'Vg',name:'Viaggio',                desc:'Documenta luoghi, persone e culture in chiave esperienziale. Legata a riviste geografiche.',imageDesc:'Luogo, persona o rito culturale in contesto di viaggio',categoria:'Viaggio'},
+    {id:32,symbol:'Rd',name:'Road trip',              desc:'Narra il viaggio su strada attraverso paesaggi, stazioni, motel e scene spontanee.',imageDesc:'Paesaggio stradale o motel lungo una highway',categoria:'Viaggio'},
+    {id:33,symbol:'Td',name:'Travel documentary',     desc:'Racconta luoghi, culture e persone con approccio narrativo e documentaristico.',imageDesc:'Persone o luoghi documentati in contesto di viaggio',categoria:'Viaggio'},
+    {id:34,symbol:'Ts',name:'Travel snapshot',        desc:'Documenta esperienze personali di viaggio con approccio spontaneo.',imageDesc:'Istantanea spontanea durante un viaggio',categoria:'Viaggio'},
+    {id:35,symbol:'Te',name:'Editoriale turistica',   desc:'Realizza immagini per guide, riviste e promozione turistica.',imageDesc:'Luogo turistico fotografato per guida o rivista',categoria:'Viaggio'},
+  ]},
+  { cat:'documentary', items:[
+    {id:36,symbol:'Dc',name:'Documentaristica',       desc:'Racconta fatti, persone e luoghi a fini di testimonianza, informazione o denuncia.',imageDesc:'Immagine documentaria con valenza testimoniale',categoria:'Documentaristica'},
+    {id:37,symbol:'Hi',name:'Storica & archivio',     desc:'Documentazione di eventi e luoghi storici, anche con valore di archivio.',imageDesc:'Immagine storica di archivio con valenza documentale',categoria:'Documentaristica'},
+    {id:38,symbol:'Pj',name:'Fotogiornalismo',        desc:'Copertura di eventi di cronaca per stampa periodica, agenzie, settimanali.',imageDesc:'Immagine iconica di evento di cronaca',categoria:'Documentaristica'},
+    {id:39,symbol:'Wf',name:'Guerra / conflitto',     desc:'Sottofamiglia del fotogiornalismo dedicata a guerre, conflitti armati, post-conflitto.',imageDesc:'Scene di conflitto armato, soldati o civili in guerra',categoria:'Documentaristica'},
+    {id:40,symbol:'Cn',name:'Sociale & umanitaria',   desc:'Documenta condizioni di disuguaglianza, povertà, sfruttamento per finalità di denuncia.',imageDesc:'Persone in condizioni di povertà o marginalità',categoria:'Documentaristica'},
+    {id:41,symbol:'Et',name:'Etnografica',            desc:'Studia popolazioni, culture e modi di vita con rigore quasi tassonomico.',imageDesc:'Comunità indigena nel proprio contesto culturale',categoria:'Documentaristica'},
+    {id:42,symbol:'Lf',name:'Long-form documentary',  desc:'Progetti di lunga durata che evolvono in libro o mostra, con tema unitario.',imageDesc:'Serie narrativa su un tema unitario sviluppata nel tempo',categoria:'Documentaristica'},
+  ]},
+  { cat:'events', items:[
+    {id:43,symbol:'Mt',name:'Eventi',                 desc:'Documenta cerimonie e celebrazioni private e pubbliche. Reportage di matrimonio, spettacoli, concerti.',imageDesc:'Cerimonia o evento pubblico con pubblico',categoria:'Eventi'},
+    {id:44,symbol:'Wp',name:'Matrimonio reportage',   desc:'Approccio narrativo non posato che documenta la giornata come reportage.',imageDesc:'Momento spontaneo durante una cerimonia di matrimonio',categoria:'Eventi'},
+    {id:45,symbol:'Wd',name:'Matrimonio editoriale',  desc:'Ispirazione fashion, set e luce curati, post-produzione raffinata.',imageDesc:'Sposi in posa curata con luce cinematografica',categoria:'Eventi'},
+    {id:46,symbol:'Sp',name:'Spettacoli',             desc:'Riprende performance teatrali, circensi e sceniche cogliendo movimento ed espressione.',imageDesc:'Performance teatrale con luce scenica',categoria:'Eventi'},
+    {id:47,symbol:'Ct',name:'Concerti',               desc:'Documenta performance musicali dal vivo cogliendo energia scenica e movimento.',imageDesc:'Concerto live con luci e movimento',categoria:'Eventi'},
+    {id:48,symbol:'Ev',name:'Corporate & pubblici',   desc:'Conferenze, premiazioni, concerti, eventi politici. Affine al fotogiornalismo.',imageDesc:'Evento corporate o premiazione con pubblico',categoria:'Eventi'},
+  ]},
+  { cat:'action', items:[
+    {id:49,symbol:'Az',name:'Azione',                 desc:'Richiede tempi rapidi, ottiche lunghe, anticipazione del momento.',imageDesc:'Atleta in azione nel momento culminante',categoria:'Azione'},
+    {id:50,symbol:'Ac',name:'Action sportiva',        desc:'Coglie il gesto agonistico nel suo apice. Tempi rapidi, ottiche lunghe.',imageDesc:'Atleta in azione nel momento culminante della competizione',categoria:'Azione'},
+    {id:51,symbol:'Rz',name:'Fotografia di danza',    desc:'Blocca o enfatizza il movimento coreografico, lavorando su ritmo, luce e postura.',imageDesc:'Danzatore in movimento con luce teatrale',categoria:'Azione'},
+    {id:52,symbol:'Ms',name:'Motorsport',             desc:'Gare automobilistiche e motociclistiche. Panning, motion blur controllato.',imageDesc:'Vettura da corsa in panning',categoria:'Azione'},
+    {id:53,symbol:'Es',name:'Sport estremi',          desc:'Arrampicata, surf, base jumping. Spesso il fotografo è anche praticante.',imageDesc:'Atleta in sport estremo (arrampicata, surf, alpinismo)',categoria:'Azione'},
+  ]},
+  { cat:'street', items:[
+    {id:54,symbol:'Ub',name:'Urbana',                 desc:'Documenta la vita quotidiana negli spazi pubblici. Spontaneità, «momento decisivo» (Cartier-Bresson).',imageDesc:'Scena urbana colta nel momento decisivo',categoria:'Fotografia Urbana'},
+    {id:55,symbol:'Sx',name:'Urbana americana',       desc:"Più cruda, energica, frammentaria. Sguardo errante sull'American Way of Life.",imageDesc:'Strada americana con atmosfera grezza e spontanea',categoria:'Fotografia Urbana'},
+    {id:56,symbol:'Cl',name:'Urbana a colori',        desc:"Riabilitazione del colore nel linguaggio fotografico autoriale a partire da fine anni '50.",imageDesc:'Scene di strada con uso espressivo del colore',categoria:'Fotografia Urbana'},
+    {id:57,symbol:'Mc',name:'Urbana classica',        desc:'Codificata dalla scuola francese e dalla Magnum: composizione rigorosa, geometria.',imageDesc:'Scena urbana classica in bianco e nero',categoria:'Fotografia Urbana'},
+    {id:58,symbol:'Sf',name:'Urbana & Flash',         desc:'Approccio invadente, ravvicinato, spesso con flash diretto. Frontalità che «viola» il soggetto.',imageDesc:'Ritratto ravvicinato con flash diretto in strada',categoria:'Fotografia Urbana'},
+    {id:59,symbol:'Pv',name:'Urbana giapponese',      desc:"Linguaggio sgranato, sfocato, sovraesposto: estetica are, bure, boke della rivista Provoke (1968-69).",imageDesc:'Scene urbane sgranate, sfocate, ad alto contrasto',categoria:'Fotografia Urbana'},
+  ]},
+  { cat:'portrait', items:[
+    {id:60,symbol:'Rt',name:'Ritratto',               desc:"Rappresentazione di una o più persone con l'obiettivo di restituirne aspetto, identità, personalità.",imageDesc:"Ritratto di persona con attenzione all'identità",categoria:'Ritratto'},
+    {id:61,symbol:'Hc',name:'Headshot & Corporate',   desc:'Ritratto formale, busto o mezzo busto, su fondo neutro, destinato a uso professionale.',imageDesc:'Primo piano o busto su sfondo neutro stile professionale',categoria:'Ritratto'},
+    {id:62,symbol:'Rg',name:'Ritratto di gruppo',     desc:'Più persone legate da relazioni familiari, professionali o sociali.',imageDesc:'Gruppo di persone in posa o in modo naturale',categoria:'Ritratto'},
+    {id:63,symbol:'Ra',name:'Ritratto ambientale',    desc:'Il soggetto è ritratto nel proprio contesto di vita o lavoro.',imageDesc:'Soggetto nel proprio ambiente di lavoro o vita quotidiana',categoria:'Ritratto'},
+    {id:64,symbol:'Rs',name:'Ritratto in studio',     desc:'Realizzato in ambiente controllato, con luce artificiale o naturale modellata.',imageDesc:'Soggetto isolato su fondo neutro, illuminazione studiata',categoria:'Ritratto'},
+    {id:65,symbol:'Au',name:'Autoritratto',           desc:'Il fotografo è insieme soggetto e oggetto. Strumento di indagine identitaria.',imageDesc:'Il fotografo ritratto da sé stesso',categoria:'Ritratto'},
+    {id:66,symbol:'Rc',name:'Ritratto spontaneo',     desc:'Non posato, spesso colto a soggetto inconsapevole. Si avvicina alla street.',imageDesc:'Soggetto colto in modo spontaneo, senza posa',categoria:'Ritratto'},
+    {id:67,symbol:'Bg',name:'Boudoir & Glamour',      desc:'Ritrattistica intima e sensuale, spesso in ambienti privati o suggestivi.',imageDesc:'Ritratto intimo o patinato, luce morbida e cura estetica',categoria:'Ritratto'},
+    {id:68,symbol:'Rp',name:'Ritratto psicologico',   desc:'Punta alla restituzione profonda della soggettività, resa formalmente scarna ma intensa.',imageDesc:'Ritratto intenso e psicologicamente denso',categoria:'Ritratto'},
+  ]},
+  { cat:'nude', items:[
+    {id:69,symbol:'Nu',name:'Nudo',                   desc:'Il corpo nudo come soggetto, con finalità artistica, formale, sensuale o politica.',imageDesc:'Corpo nudo fotografato con intenzione artistica',categoria:'Nudo'},
+    {id:70,symbol:'Na',name:'Nudo artistico',         desc:'Approccio plastico-formale, scultoreo. Corpo come paesaggio o forma astratta.',imageDesc:'Corpo nudo fotografato come forma scultorea',categoria:'Nudo'},
+    {id:71,symbol:'Ne',name:'Nudo erotico / Glamour', desc:'Componente sensuale o esplicita prevalente, spesso al confine con la moda.',imageDesc:'Nudo con connotazione sensuale e cura estetica',categoria:'Nudo'},
+    {id:72,symbol:'Bz',name:'Boudoir (Nudo)',         desc:'Nudo intimo in interni, con soggetti privati. Si lega al boudoir ritrattistico.',imageDesc:'Nudo in ambiente intimo domestico con luce morbida',categoria:'Nudo'},
+    {id:73,symbol:'Nm',name:'Nudo di massa',          desc:'Corpi nudi come soggetto collettivo, con valenza estetica, politica o di occupazione dello spazio.',imageDesc:'Folla di persone nude in spazio pubblico (installazione)',categoria:'Nudo'},
+    {id:74,symbol:'Mv',name:'Nudo & Movimento',       desc:"Origini ottocentesche dello studio del corpo in azione. Antesignana del cinema.",imageDesc:'Sequenza cronofotografica di corpo in movimento',categoria:'Nudo'},
+  ]},
+  { cat:'fashion', items:[
+    {id:75,symbol:'Md',name:'Moda',                   desc:'Promuove o interpreta abbigliamento, accessori, beauty per case di moda, riviste, brand.',imageDesc:'Servizio moda con modella in set curato',categoria:'Moda'},
+    {id:76,symbol:'Ck',name:'Catalogo & Lookbook',    desc:'Funzione commerciale: presentazione chiara del prodotto. Set neutri, luce piana.',imageDesc:'Modella in abito su fondo neutro con luce piana',categoria:'Moda'},
+    {id:77,symbol:'By',name:'Beauty',                 desc:'Volti, pelle, trucco, capelli in primissimo piano. Forte cura della luce.',imageDesc:'Primo piano di volto con attenzione a trucco e pelle',categoria:'Moda'},
+    {id:78,symbol:'Hu',name:'Alta moda (Couture)',    desc:'Iconografia delle collezioni couture: forte cura del set, abito come scultura.',imageDesc:'Modella in abito couture su set curato e pose statuarie',categoria:'Moda'},
+    {id:79,symbol:'Fe',name:'Editoriale di moda',     desc:"Servizi narrativi pubblicati su riviste (Vogue, Harper's Bazaar). Ampio margine creativo.",imageDesc:'Servizio moda narrativo e tematizzato su rivista',categoria:'Moda'},
+    {id:80,symbol:'Sh',name:'Street fashion',         desc:'Documenta la moda «in the wild»: stile reale, sfilate viste fuori dalle passerelle.',imageDesc:'Persone stilose fotografate in strada fuori dalle sfilate',categoria:'Moda'},
+    {id:81,symbol:'Vt',name:'Avant-garde fashion',    desc:'Sperimentazione visiva spinta, contaminazione con surrealismo, performance.',imageDesc:'Set sperimentale con elementi surreali o visivamente estremi',categoria:'Moda'},
+  ]},
+  { cat:'stilllife', items:[
+    {id:82,symbol:'Sl',name:'Still Life',             desc:'Eredita la natura morta pittorica: oggetti inanimati composti e illuminati con cura.',imageDesc:'Composizione di oggetti con luce studiata',categoria:'Still Life'},
+    {id:83,symbol:'Pd',name:'Product',                desc:'Prodotti commerciali (orologi, bottiglie, cosmetici, automotive). Tecnica avanzata di luce.',imageDesc:'Prodotto commerciale isolato con luce tecnica precisa',categoria:'Still Life'},
+    {id:84,symbol:'Fd',name:'Food',                   desc:'Cibo come oggetto. Si articola tra editoriale (riviste, libri di cucina) e pubblicitario.',imageDesc:'Cibo composto e illuminato con cura',categoria:'Still Life'},
+    {id:85,symbol:'Sa',name:'Still life d\'autore',   desc:'Oggetti come pretesto per ricerca formale, simbolica o materica.',imageDesc:"Composizione di oggetti con valenza estetica d'autore",categoria:'Still Life'},
+    {id:86,symbol:'Vn',name:'Tabletop & Vanitas',     desc:'Composizioni su piano. Vanitas riprende la tradizione barocca con simboli della caducità.',imageDesc:'Composizione con teschio, fiori appassiti o frutta marcia',categoria:'Still Life'},
+  ]},
+  { cat:'abstract', items:[
+    {id:87,symbol:'Ab',name:'Astratta',               desc:'Privilegia forma, linea, colore, texture, pattern rispetto al riconoscimento del soggetto reale.',imageDesc:'Composizione astratta basata su pattern o texture',categoria:'Astratta'},
+    {id:88,symbol:'Ag',name:'Astratta geometrica',    desc:'Astrazione che parte dal reale (muri, vegetazione, superfici) per estrarne pattern.',imageDesc:'Superficie o dettaglio che diventa pattern astratto',categoria:'Astratta'},
+    {id:89,symbol:'Cw',name:'Cameraless / Sperimentale',desc:'Immagini senza macchina fotografica: fotogrammi, chemigrammi, luminogrammi.',imageDesc:'Fotogramma o impronta di oggetti su carta fotosensibile',categoria:'Astratta'},
+    {id:90,symbol:'Eq',name:'Equivalent / Pittoricista',desc:'Immagini riconoscibili (nuvole, acqua) usate come metafora emotiva astratta.',imageDesc:'Nuvole o acqua fotografate come metafore emotive',categoria:'Astratta'},
+  ]},
+  { cat:'fineart', items:[
+    {id:91,symbol:'Fa',name:'Fine Art & Concettuale',  desc:"Fotografia pensata anzitutto come opera d'arte autonoma, destinata a galleria, museo o collezione.",imageDesc:'Opera fotografica concettuale o staged per galleria',categoria:'Fine Art & Concettuale'},
+    {id:92,symbol:'Tb',name:'Staged / Tableaux vivants',desc:'Scene costruite e dirette dal fotografo, con attori, set, illuminazione cinematografica.',imageDesc:'Scena costruita e diretta come un tableau cinematografico',categoria:'Fine Art & Concettuale'},
+    {id:93,symbol:'Co',name:'Concettuale (puro)',      desc:"L'idea conta più dell'oggetto. La foto è documento di un'operazione concettuale o seriale.",imageDesc:"Serie sistematica che documenta un'operazione concettuale",categoria:'Fine Art & Concettuale'},
+    {id:94,symbol:'Sr',name:'Surrealista',             desc:'Erede del surrealismo storico: gioco con sogno, inconscio, doppio, manipolazione visiva.',imageDesc:'Composizione onirica con elementi incongrui e atmosfera surreale',categoria:'Fine Art & Concettuale'},
+    {id:95,symbol:'Di',name:'Diaristica intima',       desc:'Documento autobiografico delle vite del fotografo e del proprio cerchio.',imageDesc:'Istantanea intima di vita quotidiana del fotografo',categoria:'Fine Art & Concettuale'},
+    {id:96,symbol:'Ap',name:'Appropriazione & Post-foto',desc:'Riuso e citazione di immagini esistenti; dissoluzione del concetto di autorialità.',imageDesc:"Fotografia rifotografata o appropriata da un'altra immagine",categoria:'Fine Art & Concettuale'},
+  ]},
+];
+
+const TECNICHE_DATA = [
+  {id:101,symbol:'Lp',name:'Light Painting',        desc:'Pittura con la luce: in lunga esposizione si «disegna» nello spazio con sorgenti luminose mobili.',imageDesc:'Disegni luminosi tracciati nel buio con lunga esposizione',categoria:'Tecniche & Processi'},
+  {id:102,symbol:'Mb',name:'ICM / Motion Blur',     desc:"Intentional Camera Movement: si muove la fotocamera durante l'esposizione per generare scie e astrazioni.",imageDesc:'Scie e sfocature astratte generate dal movimento della fotocamera',categoria:'Tecniche & Processi'},
+  {id:103,symbol:'Dz',name:'Doppia esposizione',    desc:'Sovrapposizione di due o più immagini sullo stesso fotogramma (in ripresa) o in postproduzione.',imageDesc:'Doppia esposizione con sovrapposizione di ritratto e paesaggio',categoria:'Tecniche & Processi'},
+  {id:104,symbol:'Hz',name:'High Speed Photography',desc:'Tempi brevissimi (1/8000 s e oltre) o flash stroboscopici per «congelare» fenomeni.',imageDesc:"Goccia d'acqua congelata in mid-air con flash stroboscopico",categoria:'Tecniche & Processi'},
+  {id:105,symbol:'If',name:'Infrarosso (IR)',        desc:'Sensibilità a lunghezze d\'onda oltre il rosso visibile. Vegetazione bianca, cieli neri.',imageDesc:'Paesaggio in infrarosso con vegetazione bianca e cielo scuro',categoria:'Tecniche & Processi'},
+  {id:106,symbol:'Uf',name:'UV & Fluorescenza',     desc:'Fotografia in luce ultravioletta (riflessa o di fluorescenza indotta). Usi scientifici e artistici.',imageDesc:'Fluorescenza di fiori o minerali in luce UV',categoria:'Tecniche & Processi'},
+  {id:107,symbol:'Ph',name:'Pinhole (Stenopeico)',  desc:"Macchina senza obiettivo: un foro sottile proietta l'immagine sul piano sensibile.",imageDesc:'Immagine morbida e sognante ottenuta con camera stenopeica',categoria:'Tecniche & Processi'},
+  {id:108,symbol:'Vr',name:'VR / 360°',             desc:'Cattura sferica del campo visivo. Restituzione su visore VR o web immersivo.',imageDesc:'Immagine sferica 360° di un paesaggio o interno',categoria:'Tecniche & Processi'},
+  {id:109,symbol:'Aj',name:'AI & Generativa',       desc:'Immagini sintetiche prodotte da modelli generativi o ibridizzazione di fotografie reali con AI.',imageDesc:'Immagine ibrida fotografia-AI con estetica surreale',categoria:'Tecniche & Processi'},
+  {id:110,symbol:'Dg',name:'Dagherrotipo',           desc:'Primo processo fotografico commerciale (1839): lastra di rame argentata.',imageDesc:'Ritratto su lastra di rame con aspetto argenteo e lucido',categoria:'Tecniche & Processi'},
+  {id:111,symbol:'Wc',name:'Wet Plate Collodion',   desc:'Lastra di vetro rivestita di collodio iodurato, esposta e sviluppata ancora umida (1851).',imageDesc:'Ritratto su lastra di vetro o metallo con tonalità vintage',categoria:'Tecniche & Processi'},
+  {id:112,symbol:'Cy',name:'Cianotipia',            desc:'Stampa a contatto con sali ferrici. Tonalità caratteristica blu di Prussia.',imageDesc:'Stampa cianotipia con toni blu su carta',categoria:'Tecniche & Processi'},
+  {id:113,symbol:'Pl',name:'Platino/Palladio',      desc:'Stampa a contatto con sali di platino (e/o palladio). Eccezionale gamma tonale.',imageDesc:'Stampa platinotipia con gamma tonale profonda',categoria:'Tecniche & Processi'},
+  {id:114,symbol:'Gb',name:'Gomma bicromatata',     desc:'Emulsione di gomma arabica, bicromato e pigmento spalmata su carta. Standard del pittorialismo.',imageDesc:'Stampa gomma bicromatata con effetto pittorico',categoria:'Tecniche & Processi'},
+  {id:115,symbol:'Cm',name:'Cameraless / Fotogramma',desc:'Formazione dell\'immagine senza ottica: fotogrammi, rayogrammi, chemigrammi.',imageDesc:'Fotogramma: silhouette di oggetti su carta fotosensibile',categoria:'Tecniche & Processi'},
 ];
 
 // ═══════════════════════════════════════════════════════════════
-// STATO GLOBALE
+// LAYOUT CONSTANTS
 // ═══════════════════════════════════════════════════════════════
+const MAX_ROWS          = 6;
+const TECNICHE_MAX_COLS = 12;   // tecniche block: max 12 cols, then wraps to row 2
+const GAP               = 3;
+const PAD_X             = 30;
+const PAD_TOP           = 14;
+const HDR_H             = 52;
+const SEP_H             = 1;
+const LEG_H             = 24;
+const EXTRA_GAP         = 20;   // vertical gap between main grid and tecniche grid
+const SEP_LINE_H        = 12;   // extra space around the separator line between grids
+const PANEL_W           = 300;
+const PANEL_PAD         = 16;
+
+let cw, ch;
+let mainCells  = [];
+let extraCells = [];
+let totalCols  = 0;
+let maxMainCol = 0;
+let maxExtraCol = 0;
+let extraRows   = 1;  // how many rows the tecniche block actually uses
+
 let activeFilter  = 'all';
 let selectedGenre = null;
 let hoveredGenre  = null;
-let cells         = [];   // celle blocco principale (righe 1–4)
-let extraCells    = [];   // celle blocco tecnico (generi con row >= 5)
 let images        = {};
+let panelOpen     = false;
+let panelX        = 0;
+let panelTargetX  = 0;
 
-// ── LAYOUT BLOCCO PRINCIPALE ─────────────────────────────────
-const MAIN_COLS  = 18;   // riga 4 ha 18 elementi → larghezza fissa
-const MAIN_ROWS  = 4;    // righe 1–4
+// ── Packing helpers ──────────────────────────────────────────
+function packGenres(groups, maxR) {
+  const placed = [];
+  let col = 1, row = 1;
+  groups.forEach(g => {
+    g.items.forEach(item => {
+      placed.push({ genre: { ...item, cat: g.cat }, col, row });
+      row++;
+      if (row > maxR) { row = 1; col++; }
+    });
+  });
+  return placed;
+}
 
-// ── LAYOUT BLOCCO TECNICO ────────────────────────────────────
-const EXTRA_COLS = 12;   // max 12 celle per riga, poi va a capo
-                          // allineato a destra rispetto alla griglia principale
+// Tecniche: pack into rows of TECNICHE_MAX_COLS, then start a new row-band
+function packTechniques(items, maxCols) {
+  const placed = [];
+  let col = 1, row = 1;
+  items.forEach(item => {
+    placed.push({ genre: { ...item, cat: 'technique' }, col, row });
+    col++;
+    if (col > maxCols) { col = 1; row++; }
+  });
+  return placed;
+}
 
-const GAP     = 3;
-const PAD_X   = 38;      // margine sinistro (dove stanno i numeri di riga)
-const PAD_TOP = 72;      // spazio sopra la prima riga
-const PAD_BOT = 40;
+function buildCells() {
+  mainCells  = [];
+  extraCells = [];
 
-// Gap verticale tra blocco principale e blocco tecnico
-const EXTRA_GAP = 48;
+  const availH  = windowHeight - HDR_H - SEP_H - LEG_H - 10;
+  const availW  = windowWidth - PAD_X * 2 - (panelOpen ? PANEL_W : 0);
 
-// Larghezza della colonna etichetta a sinistra del blocco tecnico
-const LABEL_COL_W = 54;
+  const packedMain  = packGenres(GENRE_GROUPS, MAX_ROWS);
+  const packedExtra = packTechniques(TECNICHE_DATA, TECNICHE_MAX_COLS);
 
-// PANEL
-const PANEL_W   = 310;
-const PANEL_PAD = 18;
+  maxMainCol  = packedMain .reduce((m, p) => max(m, p.col), 1);
+  maxExtraCol = packedExtra.reduce((m, p) => max(m, p.col), 1);
+  extraRows   = packedExtra.reduce((m, p) => max(m, p.row), 1);
 
-// HEADER
-const HDR_H = 62;
-const SEP_H = 1;
+  // Total logical cols: main cols vs tecniche cols (tecniche starts at col 1, same grid)
+  totalCols = max(maxMainCol, maxExtraCol);
 
-// LEGENDA
-const LEG_H      = 26;
-const LEG_ITEM_W = 108;
+  // ── Cell size ──
+  // MODIFICA DIMENSIONI CELLE: sottraiamo px extra qui per dare più aria
+  // cw: -3 rispetto al massimo che riempirebbe; ch: -4 rispetto al massimo
+  cw = floor((availW - GAP * (totalCols - 1)) / totalCols) - 3;
+  cw = max(cw, 20);
 
-// Calcolate in buildCells()
-let cw, ch, totalH;
+  // availH split: MAX_ROWS main rows + extraRows extra rows + gap
+  const totalRows  = MAX_ROWS + extraRows;
+  const totalGaps  = totalRows * GAP + EXTRA_GAP + SEP_LINE_H * 2;
+  ch = floor((availH - PAD_TOP - totalGaps) / totalRows) - 4;
+  ch = max(ch, 18);
 
-// Animazione pannello
-let panelOpen    = false;
-let panelX       = 0;
-let panelTargetX = 0;
+  // Y origins
+  const yMainStart  = HDR_H + SEP_H + LEG_H + 10 + PAD_TOP;
+  const yExtraStart = yMainStart + MAX_ROWS * (ch + GAP) + EXTRA_GAP + SEP_LINE_H;
+
+  // X: centre main grid, centre extra grid independently
+  const fullGridW  = totalCols * cw + (totalCols - 1) * GAP;
+  const mainGridW  = maxMainCol  * cw + (maxMainCol  - 1) * GAP;
+  const extraGridW = maxExtraCol * cw + (maxExtraCol - 1) * GAP;
+
+  // Centre both grids within available width
+  const centreX   = PAD_X + availW / 2;
+  const mainOffX  = centreX - mainGridW  / 2;
+  const extraOffX = centreX - extraGridW / 2;
+
+  packedMain.forEach(({ genre, col, row }) => {
+    mainCells.push({
+      x: mainOffX + (col - 1) * (cw + GAP),
+      y: yMainStart + (row - 1) * (ch + GAP),
+      w: cw, h: ch, genre
+    });
+  });
+
+  packedExtra.forEach(({ genre, col, row }) => {
+    extraCells.push({
+      x: extraOffX + (col - 1) * (cw + GAP),
+      y: yExtraStart + (row - 1) * (ch + GAP),
+      w: cw, h: ch, genre
+    });
+  });
+}
 
 // ═══════════════════════════════════════════════════════════════
-// P5.JS SKETCH
+// P5 LIFECYCLE
 // ═══════════════════════════════════════════════════════════════
-
 function setup() {
+  createCanvas(windowWidth, windowHeight);
   buildCells();
-  let cnv = createCanvas(windowWidth, totalH + HDR_H + SEP_H + LEG_H + 10);
-  cnv.style('display', 'block');
-  panelX       = width + PANEL_W;
-  panelTargetX = width + PANEL_W;
+  panelX = panelTargetX = windowWidth + PANEL_W;
   textFont('monospace');
 }
 
-// ── COSTRUZIONE GRIGLIA ──────────────────────────────────────
-function buildCells() {
-  cells      = [];
-  extraCells = [];
-
-  // Dimensione cella basata su MAIN_COLS (18) e larghezza finestra
-  cw = floor((windowWidth - PAD_X * 2 - GAP * (MAIN_COLS - 1)) / MAIN_COLS);
-  cw = max(cw, 28);
-  ch = max(36, round(cw * 1.12));
-
-  // ── Generi suddivisi ─────────────────────────────────────
-  const mainGenres  = GENRES.filter(g => g.row <= MAIN_ROWS);
-  const extraGenres = GENRES.filter(g => g.row >  MAIN_ROWS);
-
-  // ── Blocco principale: righe 1–4, 18 colonne ─────────────
-  const mainMap = {};
-  mainGenres.forEach(g => { mainMap[`${g.row}_${g.col}`] = g; });
-
-  for (let r = 1; r <= MAIN_ROWS; r++) {
-    for (let c = 1; c <= MAIN_COLS; c++) {
-      const x = PAD_X + (c - 1) * (cw + GAP);
-      const y = HDR_H + SEP_H + LEG_H + 10 + PAD_TOP + (r - 1) * (ch + GAP);
-      cells.push({ x, y, w: cw, h: ch, genre: mainMap[`${r}_${c}`] || null });
-    }
-  }
-
-  // ── Blocco tecnico: EXTRA_COLS colonne, allineato a destra ─
-  // Larghezza totale del blocco principale
-  const mainGridW = MAIN_COLS * cw + (MAIN_COLS - 1) * GAP;
-  // Larghezza del blocco extra (12 colonne, stessa cw)
-  const extraGridW = EXTRA_COLS * cw + (EXTRA_COLS - 1) * GAP;
-  // X di partenza: allineato a destra rispetto alla griglia principale
-  const extraStartX = PAD_X + mainGridW - extraGridW;
-  // Y di partenza: dopo il gap
-  const extraBaseY  = HDR_H + SEP_H + LEG_H + 10 + PAD_TOP + MAIN_ROWS * (ch + GAP) + EXTRA_GAP;
-
-  // Quante righe servono per tutti i generi extra con EXTRA_COLS colonne per riga
-  const extraRowCount = Math.ceil(extraGenres.length / EXTRA_COLS);
-
-  extraGenres.forEach((g, idx) => {
-    const rowIdx = Math.floor(idx / EXTRA_COLS); // 0-based
-    const colIdx = idx % EXTRA_COLS;             // 0-based
-    const x = extraStartX + colIdx * (cw + GAP);
-    const y = extraBaseY  + rowIdx * (ch + GAP);
-    extraCells.push({ x, y, w: cw, h: ch, genre: g });
-  });
-
-  // Altezza totale canvas
-  totalH = PAD_TOP
-    + MAIN_ROWS * (ch + GAP)
-    + EXTRA_GAP
-    + extraRowCount * (ch + GAP)
-    + PAD_BOT;
-}
-
-// ── DRAW PRINCIPALE ─────────────────────────────────────────
 function draw() {
   background(13, 13, 13);
   panelX = lerp(panelX, panelTargetX, 0.18);
@@ -456,27 +306,26 @@ function draw() {
   drawHeader();
   drawSeparator();
   drawLegend();
-  drawMainCoords();
-  drawExtraBlock();
+  drawRowColLabels();
+  drawGridSeparator();
+  drawExtraLabel();
   drawCells();
   drawPanel();
 }
 
-// ── HEADER ──────────────────────────────────────────────────
+// ── Header ───────────────────────────────────────────────────
 function drawHeader() {
   noStroke();
   fill(212, 168, 67);
-  textSize(26);
+  textSize(22);
   textAlign(LEFT, TOP);
   textStyle(BOLD);
-  text('TAVOLA PERIODICA', PAD_X, 10);
-  textStyle(NORMAL);
-  fill(110, 105, 98);
-  textSize(11);
-  text('DEI GENERI FOTOGRAFICI  —  EDIZIONE I', PAD_X, 38);
+  text('TAVOLA DELLA FOTOGRAMMATICA', PAD_X, 10);
+  fill(90, 86, 82);
+  textSize(9.5);
+  text('DEI GENERI FOTOGRAFICI', PAD_X, 36);
 }
 
-// ── LINEA SEPARATRICE ────────────────────────────────────────
 function drawSeparator() {
   stroke(40, 38, 35);
   strokeWeight(0.5);
@@ -484,116 +333,158 @@ function drawSeparator() {
   noStroke();
 }
 
-// ── LEGENDA ──────────────────────────────────────────────────
+// ── Legend ───────────────────────────────────────────────────
 function drawLegend() {
   const cats = [
-    ['all', [136, 136, 136], 'Tutti'],
-    ...Object.entries(CATS).map(([k, v]) => [k, v.sym, v.abbr])
+    ['all',        [136,136,136], 'Tutti'],
+    ['science',    CATS.science.sym,      CATS.science.abbr],
+    ['landscape',  CATS.landscape.sym,    'Archit.'],
+    ['nature',     CATS.nature.sym,       CATS.nature.abbr],
+    ['landscape2', CATS.landscape2.sym,   CATS.landscape2.abbr],
+    ['astro',      CATS.astro.sym,        CATS.astro.abbr],
+    ['travel',     CATS.travel.sym,       CATS.travel.abbr],
+    ['documentary',CATS.documentary.sym,  CATS.documentary.abbr],
+    ['events',     CATS.events.sym,       CATS.events.abbr],
+    ['action',     CATS.action.sym,       CATS.action.abbr],
+    ['street',     CATS.street.sym,       CATS.street.abbr],
+    ['portrait',   CATS.portrait.sym,     CATS.portrait.abbr],
+    ['nude',       CATS.nude.sym,         CATS.nude.abbr],
+    ['fashion',    CATS.fashion.sym,      CATS.fashion.abbr],
+    ['stilllife',  CATS.stilllife.sym,    CATS.stilllife.abbr],
+    ['abstract',   CATS.abstract.sym,     CATS.abstract.abbr],
+    ['fineart',    CATS.fineart.sym,      CATS.fineart.abbr],
+    ['technique',  CATS.technique.sym,    CATS.technique.abbr],
   ];
-  const startY = HDR_H + SEP_H + 2;
-  const itemW  = min(LEG_ITEM_W, (width - PAD_X * 2) / cats.length);
+  const startY = HDR_H + SEP_H + 1;
+  const itemW  = min(90, (width - PAD_X * 2) / cats.length);
 
   cats.forEach(([key, col, label], i) => {
-    const x        = PAD_X + i * itemW;
-    const y        = startY;
+    const x = PAD_X + i * itemW;
     const isActive = activeFilter === key;
 
     if (isActive) {
       noStroke();
       fill(25, 25, 25);
-      rect(x, y, itemW - 3, LEG_H - 2, 2);
+      rect(x, startY, itemW - 2, LEG_H - 2, 2);
     }
     fill(col[0], col[1], col[2]);
     noStroke();
-    rect(x + 7, y + LEG_H / 2 - 4, 7, 7, 1);
-    fill(isActive ? 195 : 80, isActive ? 193 : 78, isActive ? 189 : 74);
+    rect(x + 4, startY + LEG_H / 2 - 3, 6, 6, 1);
+
+    fill(isActive ? 195 : 82, isActive ? 193 : 79, isActive ? 189 : 75);
     textSize(8.5);
     textAlign(LEFT, CENTER);
     textStyle(NORMAL);
-    text(label, x + 20, y + LEG_H / 2);
+    text(label, x + 13, startY + LEG_H / 2);
   });
 }
 
-// ── COORDINATE BLOCCO PRINCIPALE ────────────────────────────
-function drawMainCoords() {
-  textSize(max(7, cw * 0.09));
-  textStyle(NORMAL);
+// ── Row / col axis labels ────────────────────────────────────
+function drawRowColLabels() {
+  if (!mainCells.length) return;
 
-  // Numeri colonne sopra riga 1
-  for (let c = 1; c <= MAIN_COLS; c++) {
-    const x = PAD_X + (c - 1) * (cw + GAP) + cw / 2;
-    const y = HDR_H + SEP_H + LEG_H + 10 + PAD_TOP - 13;
-    fill(48, 46, 44);
-    textAlign(CENTER, CENTER);
-    text(c, x, y);
+  const yMainStart  = HDR_H + SEP_H + LEG_H + 10 + PAD_TOP;
+  const yExtraStart = yMainStart + MAX_ROWS * (ch + GAP) + EXTRA_GAP + SEP_LINE_H;
+
+  const availW     = windowWidth - PAD_X * 2 - (panelOpen ? PANEL_W : 0);
+  const centreX    = PAD_X + availW / 2;
+  const mainGridW  = maxMainCol  * cw + (maxMainCol  - 1) * GAP;
+  const extraGridW = maxExtraCol * cw + (maxExtraCol - 1) * GAP;
+  const mainOffX   = centreX - mainGridW  / 2;
+  const extraOffX  = centreX - extraGridW / 2;
+
+  noStroke();
+  textStyle(NORMAL);
+  textSize(8);
+  fill(55, 52, 48);
+
+  // Main: row labels (left)
+  textAlign(RIGHT, CENTER);
+  for (let r = 1; r <= MAX_ROWS; r++) {
+    const y = yMainStart + (r - 1) * (ch + GAP) + ch / 2;
+    text(r, mainOffX - 6, y);
   }
-  // Numeri righe
-  for (let r = 1; r <= MAIN_ROWS; r++) {
-    const y = HDR_H + SEP_H + LEG_H + 10 + PAD_TOP + (r - 1) * (ch + GAP) + ch / 2;
-    fill(48, 46, 44);
-    textAlign(RIGHT, CENTER);
-    text(r, PAD_X - 9, y);
+
+  // Main: col labels (top) — shared with tecniche, no need to repeat
+  textAlign(CENTER, BOTTOM);
+  for (let c = 1; c <= maxMainCol; c++) {
+    const x = mainOffX + (c - 1) * (cw + GAP) + cw / 2;
+    text(c, x, yMainStart - 3);
+  }
+
+  // Tecniche: row labels — offset as 7, 8 (continuing numbering from main)
+  textAlign(RIGHT, CENTER);
+  for (let r = 1; r <= extraRows; r++) {
+    const y = yExtraStart + (r - 1) * (ch + GAP) + ch / 2;
+    text(MAX_ROWS + r, extraOffX - 6, y);
+  }
+  // Tecniche: col labels — only if extraGridW > mainGridW (more cols than main)
+  // Otherwise the main col labels already cover them since grids are independent
+  // We do draw them since extra grid may be centred differently
+  textAlign(CENTER, BOTTOM);
+  for (let c = 1; c <= maxExtraCol; c++) {
+    const x = extraOffX + (c - 1) * (cw + GAP) + cw / 2;
+    // Only draw if this col label won't overlap the main ones above
+    // (they share the same col numbers 1..12)
+    text(c, x, yExtraStart - 3);
   }
 }
 
-// ── BLOCCO TECNICO: etichetta + celle + coordinate ───────────
-function drawExtraBlock() {
-  const extraGenres = GENRES.filter(g => g.row > MAIN_ROWS);
-  if (extraGenres.length === 0) return;
+// ── Separator line between main grid and tecniche grid ───────
+function drawGridSeparator() {
+  if (!mainCells.length || !extraCells.length) return;
 
-  const mainGridW  = MAIN_COLS * cw + (MAIN_COLS - 1) * GAP;
-  const extraGridW = EXTRA_COLS * cw + (EXTRA_COLS - 1) * GAP;
-  const extraStartX = PAD_X + mainGridW - extraGridW;
-  const extraBaseY  = HDR_H + SEP_H + LEG_H + 10 + PAD_TOP + MAIN_ROWS * (ch + GAP) + EXTRA_GAP;
-  const extraRowCount = Math.ceil(extraGenres.length / EXTRA_COLS);
-  const extraBlockH   = extraRowCount * (ch + GAP) - GAP;
+  const yMainStart  = HDR_H + SEP_H + LEG_H + 10 + PAD_TOP;
+  const yExtraStart = yMainStart + MAX_ROWS * (ch + GAP) + EXTRA_GAP + SEP_LINE_H;
+  const sepY        = yMainStart + MAX_ROWS * (ch + GAP) + EXTRA_GAP / 2 + SEP_LINE_H / 2;
 
-  // ── Etichetta verticale a sinistra del blocco extra ──────
-  const labelX = extraStartX - LABEL_COL_W;
-  const labelCX = (PAD_X + extraStartX) / 2;
-  const labelCY = extraBaseY + extraBlockH / 2;
+  const availW     = windowWidth - PAD_X * 2 - (panelOpen ? PANEL_W : 0);
+  const centreX    = PAD_X + availW / 2;
+  const mainGridW  = maxMainCol  * cw + (maxMainCol  - 1) * GAP;
+  const extraGridW = maxExtraCol * cw + (maxExtraCol - 1) * GAP;
+  const mainOffX   = centreX - mainGridW  / 2;
+  const extraOffX  = centreX - extraGridW / 2;
 
-  stroke(45, 43, 40);
+  const lineX1 = min(mainOffX, extraOffX) - 14;
+  const lineX2 = max(mainOffX + mainGridW, extraOffX + extraGridW) + 14;
+
+  stroke(42, 40, 37);
   strokeWeight(0.5);
-  line(extraStartX - 10, extraBaseY, extraStartX - 10, extraBaseY + extraBlockH);
+  line(lineX1, sepY, lineX2, sepY);
   noStroke();
+}
+
+// ── Tecniche section label (vertical, left of tecniche block) ─
+function drawExtraLabel() {
+  if (!extraCells.length) return;
+
+  const yMainStart  = HDR_H + SEP_H + LEG_H + 10 + PAD_TOP;
+  const yExtraStart = yMainStart + MAX_ROWS * (ch + GAP) + EXTRA_GAP + SEP_LINE_H;
+  const extraBlockH = extraRows * ch + (extraRows - 1) * GAP;
+
+  const availW     = windowWidth - PAD_X * 2 - (panelOpen ? PANEL_W : 0);
+  const centreX    = PAD_X + availW / 2;
+  const extraGridW = maxExtraCol * cw + (maxExtraCol - 1) * GAP;
+  const extraOffX  = centreX - extraGridW / 2;
+
+  const labelCX = (PAD_X + extraOffX - 14) / 2;
+  const labelCY = yExtraStart + extraBlockH / 2;
 
   push();
   translate(labelCX, labelCY);
   rotate(-HALF_PI);
   textAlign(CENTER, CENTER);
   textStyle(BOLD);
-  fill(160, 155, 148);
-  textSize(10);
-  text('TECNICHE SPECIALISTICHE', 0, 0);
-  textStyle(NORMAL);
-  fill(90, 86, 82);
-  textSize(8);
-  text('& APPLICATIVE', 0, 13);
+  fill(110, 106, 100);
+  textSize(9);
+  text('TECNICHE & PROCESSI', 0, 0);
   pop();
-
-  // ── Coordinate del blocco extra ──────────────────────────
-  textSize(max(7, cw * 0.09));
-  textStyle(NORMAL);
-
-  for (let c = 1; c <= EXTRA_COLS; c++) {
-    const x = extraStartX + (c - 1) * (cw + GAP) + cw / 2;
-    fill(48, 46, 44);
-    textAlign(CENTER, CENTER);
-    text(c, x, extraBaseY - 13);
-  }
-  for (let ri = 0; ri < extraRowCount; ri++) {
-    const y = extraBaseY + ri * (ch + GAP) + ch / 2;
-    fill(48, 46, 44);
-    textAlign(RIGHT, CENTER);
-    text(MAIN_ROWS + 1 + ri, PAD_X - 9, y);
-  }
 }
 
-// ── CELLE BLOCCO PRINCIPALE ──────────────────────────────────
+// ── Cells ────────────────────────────────────────────────────
 function drawCells() {
-  cells.forEach(cell => drawCell(cell, false));
-  extraCells.forEach(cell => drawCell(cell, true));
+  mainCells .forEach(c => drawCell(c));
+  extraCells.forEach(c => drawCell(c));
 }
 
 function truncateName(name, maxW) {
@@ -603,30 +494,22 @@ function truncateName(name, maxW) {
   return t + '…';
 }
 
-function drawCell(cell, isExtra) {
-  const g        = cell.genre;
-  const isHov    = hoveredGenre  && g && hoveredGenre.id  === g.id;
-  const isSel    = selectedGenre && g && selectedGenre.id === g.id;
-  const filtered = activeFilter !== 'all' && g && g.cat !== activeFilter;
+function drawCell(cell) {
+  const g = cell.genre;
+  if (!g) return;
 
-  if (!g) {
-    noFill();
-    stroke(20, 20, 20);
-    strokeWeight(0.5);
-    rect(cell.x, cell.y, cell.w, cell.h, 1);
-    return;
-  }
-
-  const c   = CATS[g.cat] || Object.values(CATS)[0];
-  const dim = filtered ? 0.08 : 1;
+  const isHov  = hoveredGenre  && hoveredGenre.id  === g.id;
+  const isSel  = selectedGenre && selectedGenre.id === g.id;
+  const faded  = activeFilter !== 'all' && g.cat !== activeFilter;
+  const c      = CATS[g.cat] || CATS.science;
+  const dim    = faded ? 0.07 : 1;
 
   push();
   translate(cell.x, cell.y);
 
-  const bgAlpha = isHov && !filtered ? 52 : 30;
-  fill(c.bg[0], c.bg[1], c.bg[2], 255 * bgAlpha / 100 * dim);
-  const bAlpha  = filtered ? 18 : (isSel ? 255 : (isHov ? 180 : 100));
-  stroke(c.border[0], c.border[1], c.border[2], bAlpha);
+  fill(c.bg[0], c.bg[1], c.bg[2], 255 * (isHov && !faded ? 0.52 : 0.28) * dim);
+  const bA = faded ? 15 : (isSel ? 255 : (isHov ? 170 : 90));
+  stroke(c.border[0], c.border[1], c.border[2], bA);
   strokeWeight(isSel ? 1.5 : (isHov ? 1 : 0.5));
   rect(0, 0, cell.w, cell.h, 1);
 
@@ -638,220 +521,38 @@ function drawCell(cell, isExtra) {
   }
   noStroke();
 
-  textSize(max(5, cw * 0.1));
-  fill(65, 63, 60, 255 * dim);
+  textSize(max(4, cw * 0.09));
+  fill(55, 53, 50, 255 * dim);
   textAlign(LEFT, TOP);
   textStyle(NORMAL);
-  text(g.id, 3, 2);
+  text(g.id, 2, 1);
 
-  if (g.image && g.image.length > 0) {
-    fill(212, 168, 67, 200 * dim);
-    noStroke();
-    ellipse(cell.w - 5, 5, 4, 4);
-  }
-
-  const symSz = max(10, min(cw * 0.38, ch * 0.40));
+  const symSz = max(7, min(cw * 0.35, ch * 0.37));
   textSize(symSz);
   textStyle(BOLD);
   fill(c.sym[0], c.sym[1], c.sym[2], 255 * dim);
   textAlign(CENTER, CENTER);
-  text(g.symbol, cell.w / 2, cell.h * 0.44);
+  text(g.symbol, cell.w / 2, cell.h * 0.43);
 
-  const nameSz = max(5.5, min(cw * 0.115, 8.5));
+  const nameSz = max(4.5, min(cw * 0.10, 7.5));
   textSize(nameSz);
   textStyle(NORMAL);
-  fill(130, 127, 122, 255 * dim);
+  fill(118, 115, 110, 255 * dim);
   textAlign(CENTER, BOTTOM);
-  text(truncateName(g.name, cell.w - 4), cell.w / 2, cell.h - 3);
+  text(truncateName(g.name, cell.w - 3), cell.w / 2, cell.h - 2);
 
   pop();
 }
 
 // ═══════════════════════════════════════════════════════════════
-// PANNELLO DETTAGLIO
+// DETAIL PANEL
 // ═══════════════════════════════════════════════════════════════
-
 function getNavigableList() {
-  return activeFilter === 'all' ? GENRES : GENRES.filter(g => g.cat === activeFilter);
-}
-
-function drawImagePlaceholder(x, y, w, h, g) {
-  const c = CATS[g.cat] || Object.values(CATS)[0];
-  fill(16, 16, 16);
-  stroke(26, 26, 24);
-  strokeWeight(0.5);
-  rect(x, y, w, h, 2);
-  noStroke();
-  fill(c.bg[0], c.bg[1], c.bg[2], 60);
-  rect(x, y + h - 3, w, 3, 0, 0, 2, 2);
-
-  const cx = x + w / 2;
-  const icY = y + h * 0.28;
-  const sz  = min(w, h) * 0.14;
-  fill(c.sym[0], c.sym[1], c.sym[2], 40);
-  noStroke();
-  rectMode(CENTER);
-  rect(cx, icY, sz * 2.8, sz * 2, 3);
-  rect(cx - sz * 0.5, icY - sz * 1.1, sz * 1.1, sz * 0.7, 2);
-  rectMode(CORNER);
-  noFill();
-  stroke(c.sym[0], c.sym[1], c.sym[2], 55);
-  strokeWeight(1);
-  ellipse(cx, icY, sz * 1.4, sz * 1.4);
-  noStroke();
-
-  const desc = g.imageDesc || '';
-  if (desc.length > 0) {
-    const maxW  = w - 16;
-    const descY = y + h * 0.52;
-    fill(c.sym[0], c.sym[1], c.sym[2], 50);
-    textSize(7);
-    textAlign(CENTER, TOP);
-    textStyle(NORMAL);
-    text('SOGGETTO IDEALE', cx, descY - 14);
-    stroke(c.border[0], c.border[1], c.border[2], 35);
-    strokeWeight(0.5);
-    line(x + 12, descY - 5, x + w - 12, descY - 5);
-    noStroke();
-    fill(85, 82, 78);
-    textSize(8.5);
-    textAlign(CENTER, TOP);
-    textStyle(NORMAL);
-    drawWrappedTextCentered(desc, cx, descY, maxW, 13);
-  } else {
-    fill(40, 38, 36);
-    textSize(8);
-    textAlign(CENTER, CENTER);
-    textStyle(NORMAL);
-    text('nessuna immagine', cx, y + h / 2 + 16);
-  }
-}
-
-function drawWrappedTextCentered(txt, cx, y, maxW, lineH) {
-  const words = txt.split(' ');
-  let line = '', cy = y;
-  textAlign(CENTER, TOP);
-  words.forEach(word => {
-    const test = line + (line ? ' ' : '') + word;
-    if (textWidth(test) > maxW && line) { text(line, cx, cy); cy += lineH; line = word; }
-    else line = test;
-  });
-  if (line) text(line, cx, cy);
-}
-
-function drawPanel() {
-  if (!selectedGenre && panelX >= width) return;
-  const px = round(panelX);
-  const g  = selectedGenre;
-
-  fill(14, 14, 14);
-  noStroke();
-  rect(px, 0, PANEL_W, height);
-  stroke(30, 30, 30);
-  strokeWeight(0.5);
-  line(px, 0, px, height);
-  noStroke();
-  if (!g) return;
-
-  const c       = CATS[g.cat] || Object.values(CATS)[0];
-  const tx      = px + PANEL_PAD;
-  const navList = getNavigableList();
-  const navIdx  = navList.findIndex(x => x.id === g.id);
-  const hasPrev = navIdx > 0;
-  const hasNext = navIdx < navList.length - 1;
-  let ty        = 18;
-
-  if (navList.length > 1) {
-    fill(45, 43, 40); textSize(8); textAlign(LEFT, CENTER); textStyle(NORMAL);
-    text(`${navIdx + 1} / ${navList.length}`, tx, ty + 11);
-  }
-
-  const prevX  = px + PANEL_W - 32 - 26 - 26;
-  const nextX  = px + PANEL_W - 32 - 26;
-  const closeX = px + PANEL_W - 32;
-  const btnY   = ty;
-
-  [
-    [prevX, hasPrev, '‹'],
-    [nextX, hasNext, '›'],
-    [closeX, true,   '✕'],
-  ].forEach(([bx, active, ch_]) => {
-    fill(active ? 32 : 20, active ? 32 : 20, active ? 30 : 18);
-    stroke(38, 38, 36); strokeWeight(0.5);
-    rect(bx, btnY, 22, 22, 2); noStroke();
-    fill(active ? 90 : 38, active ? 88 : 36, active ? 85 : 34);
-    textSize(11); textAlign(CENTER, CENTER);
-    text(ch_, bx + 11, btnY + 11);
-  });
-  ty += 32;
-
-  stroke(25, 25, 23); strokeWeight(0.5);
-  line(tx, ty, px + PANEL_W - PANEL_PAD, ty); noStroke(); ty += 12;
-
-  fill(62, 60, 57); textSize(8.5); textAlign(LEFT, TOP); textStyle(NORMAL);
-  text(`— ${String(g.id).padStart(2, '0')} —`, tx, ty); ty += 15;
-
-  fill(c.sym[0], c.sym[1], c.sym[2]); textSize(48); textStyle(BOLD);
-  text(g.symbol, tx, ty); ty += 54;
-
-  fill(205, 201, 195); textSize(11); textStyle(NORMAL); textAlign(LEFT, TOP);
-  const maxW = PANEL_W - PANEL_PAD * 2;
-  if (textWidth(g.name) > maxW) {
-    drawWrappedText(g.name, tx, ty, maxW, 15);
-    ty += measureWrappedText(g.name, maxW, 15) + 4;
-  } else { text(g.name, tx, ty); ty += 16; }
-
-  fill(c.sym[0], c.sym[1], c.sym[2], 200); textSize(8); textAlign(LEFT, TOP); textStyle(NORMAL);
-  text((g.categoria || c.label || g.cat).toUpperCase(), tx, ty); ty += 14;
-
-  stroke(28, 28, 26); strokeWeight(0.5);
-  line(tx, ty, px + PANEL_W - PANEL_PAD, ty); noStroke(); ty += 13;
-
-  const imgW = PANEL_W - PANEL_PAD * 2;
-  const imgH = round(imgW * 0.68);
-
-  if (g.image && g.image.length > 0 && images[g.image]) {
-    image(images[g.image], tx, ty, imgW, imgH); ty += imgH + 4;
-    const credit = g.photoCredit || '', pdate = g.photoDate || '';
-    if (credit || pdate) {
-      fill(48, 46, 43); textSize(7.5); textAlign(RIGHT, TOP); textStyle(NORMAL);
-      text(`${credit}${pdate ? '  ·  ' + pdate : ''}`, px + PANEL_W - PANEL_PAD, ty);
-      ty += 14;
-    } else ty += 4;
-  } else if (g.image && g.image.length > 0) {
-    fill(16, 16, 16); stroke(26, 26, 24); strokeWeight(0.5);
-    rect(tx, ty, imgW, imgH, 2); noStroke();
-    fill(55, 52, 48); textSize(8); textAlign(CENTER, CENTER);
-    text('caricamento…', tx + imgW / 2, ty + imgH / 2); ty += imgH + 8;
-  } else {
-    drawImagePlaceholder(tx, ty, imgW, imgH, g); ty += imgH + 4;
-    fill(40, 38, 35); textSize(7); textAlign(RIGHT, TOP); textStyle(NORMAL);
-    text('nessuna immagine — aggiungi un URL nel campo image', px + PANEL_W - PANEL_PAD, ty);
-    ty += 14;
-  }
-
-  stroke(28, 28, 26); strokeWeight(0.5);
-  line(tx, ty, px + PANEL_W - PANEL_PAD, ty); noStroke(); ty += 11;
-
-  fill(105, 102, 98); textSize(9.5); textStyle(NORMAL); textAlign(LEFT, TOP);
-  drawWrappedText(g.desc || '—', tx, ty, maxW, 16);
-  ty += measureWrappedText(g.desc || '—', maxW, 16) + 13;
-
-  stroke(28, 28, 26); strokeWeight(0.5);
-  line(tx, ty, px + PANEL_W - PANEL_PAD, ty); noStroke(); ty += 10;
-
-  fill(52, 50, 47); textSize(8); textStyle(NORMAL); textAlign(LEFT, TOP);
-  text('MAESTRI', tx, ty);
-  fill(162, 158, 152); textSize(8); textStyle(NORMAL); textAlign(RIGHT, TOP);
-  const rightEdge = px + PANEL_W - PANEL_PAD;
-  const names = (g.maestri || '—').split(', ');
-  let mLine = '', mCy = ty;
-  names.forEach(name => {
-    const test = mLine + (mLine ? ', ' : '') + name;
-    if (textWidth(test) > maxW && mLine) { text(mLine, rightEdge, mCy); mCy += 13; mLine = name; }
-    else mLine = test;
-  });
-  if (mLine) text(mLine, rightEdge, mCy);
+  const all = [
+    ...GENRE_GROUPS.flatMap(g => g.items.map(i => ({ ...i, cat: g.cat }))),
+    ...TECNICHE_DATA.map(i => ({ ...i, cat: 'technique' }))
+  ];
+  return activeFilter === 'all' ? all : all.filter(g => g.cat === activeFilter);
 }
 
 function drawWrappedText(txt, x, y, maxW, lineH) {
@@ -876,74 +577,198 @@ function measureWrappedText(txt, maxW, lineH) {
   return lines * lineH;
 }
 
-// ═══════════════════════════════════════════════════════════════
-// INTERAZIONE
-// ═══════════════════════════════════════════════════════════════
+function drawWrappedTextCentered(txt, cx, y, maxW, lineH) {
+  const words = txt.split(' ');
+  let line = '', cy = y;
+  textAlign(CENTER, TOP);
+  words.forEach(word => {
+    const test = line + (line ? ' ' : '') + word;
+    if (textWidth(test) > maxW && line) { text(line, cx, cy); cy += lineH; line = word; }
+    else line = test;
+  });
+  if (line) text(line, cx, cy);
+}
 
-function getPanelLeft() { return round(panelX); }
-function isOverPanel(mx) { return panelOpen && mx >= getPanelLeft(); }
+function drawImagePlaceholder(x, y, w, h, g) {
+  const c  = CATS[g.cat] || CATS.science;
+  const cx = x + w / 2;
+  const icY = y + h * 0.28;
+  const sz  = min(w, h) * 0.13;
+
+  fill(16, 16, 16);
+  stroke(26, 26, 24); strokeWeight(0.5);
+  rect(x, y, w, h, 2);
+  noStroke();
+
+  fill(c.bg[0], c.bg[1], c.bg[2], 55);
+  rect(x, y + h - 3, w, 3, 0, 0, 2, 2);
+
+  fill(c.sym[0], c.sym[1], c.sym[2], 35);
+  rectMode(CENTER);
+  rect(cx, icY, sz * 2.8, sz * 2, 3);
+  rect(cx - sz * 0.5, icY - sz * 1.1, sz * 1.1, sz * 0.7, 2);
+  rectMode(CORNER);
+  noFill();
+  stroke(c.sym[0], c.sym[1], c.sym[2], 50); strokeWeight(1);
+  ellipse(cx, icY, sz * 1.4, sz * 1.4);
+  noStroke();
+
+  if (g.imageDesc && g.imageDesc.length > 0) {
+    const descY = y + h * 0.52;
+    fill(c.sym[0], c.sym[1], c.sym[2], 45);
+    textSize(6.5); textAlign(CENTER, TOP); textStyle(NORMAL);
+    text('SOGGETTO IDEALE', cx, descY - 12);
+    stroke(c.border[0], c.border[1], c.border[2], 30); strokeWeight(0.5);
+    line(x + 10, descY - 4, x + w - 10, descY - 4);
+    noStroke();
+    fill(80, 77, 73);
+    textSize(8); textAlign(CENTER, TOP); textStyle(NORMAL);
+    drawWrappedTextCentered(g.imageDesc, cx, descY, w - 14, 12);
+  }
+}
+
+function drawPanel() {
+  if (!selectedGenre && panelX >= width) return;
+  const px = round(panelX);
+  const g  = selectedGenre;
+
+  fill(14, 14, 14); noStroke();
+  rect(px, 0, PANEL_W, height);
+  stroke(30, 30, 30); strokeWeight(0.5);
+  line(px, 0, px, height);
+  noStroke();
+
+  if (!g) return;
+
+  const c      = CATS[g.cat] || CATS.science;
+  const tx     = px + PANEL_PAD;
+  const maxW   = PANEL_W - PANEL_PAD * 2;
+  const navList = getNavigableList();
+  const navIdx  = navList.findIndex(x => x.id === g.id);
+  const hasPrev = navIdx > 0;
+  const hasNext = navIdx < navList.length - 1;
+
+  let ty = 16;
+
+  if (navList.length > 1) {
+    fill(45, 43, 40);
+    textSize(7.5); textAlign(LEFT, CENTER); textStyle(NORMAL);
+    text(`${navIdx + 1} / ${navList.length}`, tx, ty + 10);
+  }
+
+  const closeX = px + PANEL_W - 30;
+  const nextX  = closeX - 24;
+  const prevX  = nextX  - 24;
+  [[prevX, hasPrev, '‹'], [nextX, hasNext, '›'], [closeX, true, '✕']].forEach(([bx, active, ch_]) => {
+    fill(active ? 30 : 18, active ? 30 : 18, active ? 28 : 16);
+    stroke(36, 36, 34); strokeWeight(0.5);
+    rect(bx, ty, 20, 20, 2);
+    noStroke();
+    fill(active ? 88 : 36, active ? 86 : 34, active ? 83 : 32);
+    textSize(10); textAlign(CENTER, CENTER);
+    text(ch_, bx + 10, ty + 10);
+  });
+
+  ty += 30;
+  stroke(24, 24, 22); strokeWeight(0.5);
+  line(tx, ty, px + PANEL_W - PANEL_PAD, ty);
+  noStroke(); ty += 11;
+
+  fill(58, 56, 53); textSize(8); textAlign(LEFT, TOP); textStyle(NORMAL);
+  text(`— ${String(g.id).padStart(2, '0')} —`, tx, ty); ty += 14;
+
+  fill(c.sym[0], c.sym[1], c.sym[2]);
+  textSize(42); textStyle(BOLD);
+  text(g.symbol, tx, ty); ty += 48;
+
+  fill(200, 196, 190); textSize(10.5); textStyle(NORMAL); textAlign(LEFT, TOP);
+  if (textWidth(g.name) > maxW) {
+    drawWrappedText(g.name, tx, ty, maxW, 14);
+    ty += measureWrappedText(g.name, maxW, 14) + 4;
+  } else { text(g.name, tx, ty); ty += 15; }
+
+  fill(c.sym[0], c.sym[1], c.sym[2], 190);
+  textSize(7.5); textAlign(LEFT, TOP); textStyle(NORMAL);
+  text((g.categoria || c.label || g.cat).toUpperCase(), tx, ty); ty += 13;
+
+  stroke(26, 26, 24); strokeWeight(0.5);
+  line(tx, ty, px + PANEL_W - PANEL_PAD, ty);
+  noStroke(); ty += 12;
+
+  const imgW = PANEL_W - PANEL_PAD * 2;
+  const imgH = round(imgW * 0.65);
+  if (g.image && g.image.length > 0 && images[g.image]) {
+    image(images[g.image], tx, ty, imgW, imgH); ty += imgH + 8;
+  } else {
+    drawImagePlaceholder(tx, ty, imgW, imgH, g); ty += imgH + 4;
+    fill(38, 36, 33); textSize(6.5); textAlign(RIGHT, TOP); textStyle(NORMAL);
+    text('nessuna immagine', px + PANEL_W - PANEL_PAD, ty); ty += 12;
+  }
+
+  stroke(26, 26, 24); strokeWeight(0.5);
+  line(tx, ty, px + PANEL_W - PANEL_PAD, ty);
+  noStroke(); ty += 10;
+
+  fill(100, 97, 93); textSize(9); textStyle(NORMAL); textAlign(LEFT, TOP);
+  drawWrappedText(g.desc || '—', tx, ty, maxW, 15);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INTERACTION
+// ═══════════════════════════════════════════════════════════════
+function getPanelLeft()    { return round(panelX); }
+function isOverPanel(mx)   { return panelOpen && mx >= getPanelLeft(); }
 
 function mouseClicked() {
   const mx = mouseX, my = mouseY;
   const px = getPanelLeft();
 
   if (panelOpen && mx >= px) {
-    const btnY = 18, closeX = px + PANEL_W - 32;
-    const prevX = px + PANEL_W - 32 - 26 - 26, nextX = px + PANEL_W - 32 - 26;
-    if (mx >= closeX && mx <= closeX + 22 && my >= btnY && my <= btnY + 22) { closePanel(); return; }
-    if (mx >= prevX  && mx <= prevX  + 22 && my >= btnY && my <= btnY + 22) { navigatePanel(-1); return; }
-    if (mx >= nextX  && mx <= nextX  + 22 && my >= btnY && my <= btnY + 22) { navigatePanel(1);  return; }
+    const closeX = px + PANEL_W - 30;
+    const nextX  = closeX - 24;
+    const prevX  = nextX  - 24;
+    if (mx >= closeX && mx <= closeX + 20 && my >= 16 && my <= 36) { closePanel(); return; }
+    if (mx >= prevX  && mx <= prevX  + 20 && my >= 16 && my <= 36) { navigatePanel(-1); return; }
+    if (mx >= nextX  && mx <= nextX  + 20 && my >= 16 && my <= 36) { navigatePanel(1);  return; }
     return;
   }
 
-  const cats   = [['all', [136,136,136], 'Tutti'], ...Object.entries(CATS).map(([k,v]) => [k, v.sym, v.abbr])];
-  const startY = HDR_H + SEP_H + 2;
-  const itemW  = min(LEG_ITEM_W, (width - PAD_X * 2) / cats.length);
+  const legCats = ['all','science','landscape','nature','landscape2','astro','travel',
+                   'documentary','events','action','street','portrait','nude','fashion',
+                   'stilllife','abstract','fineart','technique'];
+  const startY = HDR_H + SEP_H + 1;
+  const itemW  = min(90, (width - PAD_X * 2) / legCats.length);
   if (my >= startY && my <= startY + LEG_H) {
     const i = floor((mx - PAD_X) / itemW);
-    if (i >= 0 && i < cats.length) { activeFilter = cats[i][0]; return; }
+    if (i >= 0 && i < legCats.length) { activeFilter = legCats[i]; return; }
   }
 
-  for (const cell of cells) {
+  for (const cell of [...mainCells, ...extraCells]) {
     if (!cell.genre) continue;
-    if (panelOpen && cell.x + cell.w >= getPanelLeft()) continue;
+    if (panelOpen && cell.x + cell.w >= px) continue;
     if (mx >= cell.x && mx <= cell.x + cell.w && my >= cell.y && my <= cell.y + cell.h) {
-      const g = cell.genre;
-      if (activeFilter === 'all' || g.cat === activeFilter) { openPanel(g); return; }
+      if (activeFilter === 'all' || cell.genre.cat === activeFilter) { openPanel(cell.genre); return; }
     }
   }
-  for (const cell of extraCells) {
-    if (!cell.genre) continue;
-    if (panelOpen && cell.x + cell.w >= getPanelLeft()) continue;
-    if (mx >= cell.x && mx <= cell.x + cell.w && my >= cell.y && my <= cell.y + cell.h) {
-      const g = cell.genre;
-      if (activeFilter === 'all' || g.cat === activeFilter) { openPanel(g); return; }
-    }
-  }
-
   if (selectedGenre && !isOverPanel(mx)) closePanel();
 }
 
 function mouseMoved() {
   const px = getPanelLeft();
   let found = null;
-  const allCells = [...cells, ...extraCells];
-  for (const cell of allCells) {
+  for (const cell of [...mainCells, ...extraCells]) {
     if (!cell.genre) continue;
     if (panelOpen && cell.x + cell.w >= px) continue;
     if (mouseX >= cell.x && mouseX <= cell.x + cell.w &&
-        mouseY >= cell.y && mouseY <= cell.y + cell.h) {
-      found = cell.genre; break;
-    }
+        mouseY >= cell.y && mouseY <= cell.y + cell.h) { found = cell.genre; break; }
   }
   if (found !== hoveredGenre) { hoveredGenre = found; cursor(found ? HAND : ARROW); }
 }
 
 function windowResized() {
   buildCells();
-  resizeCanvas(windowWidth, totalH + HDR_H + SEP_H + LEG_H + 10);
-  panelX       = width + (panelOpen ? -PANEL_W : PANEL_W);
-  panelTargetX = width + (panelOpen ? -PANEL_W : PANEL_W);
+  resizeCanvas(windowWidth, windowHeight);
+  panelX = panelTargetX = width + (panelOpen ? -PANEL_W : PANEL_W);
 }
 
 function keyPressed() {
@@ -957,7 +782,7 @@ function openPanel(g) {
   selectedGenre = g;
   panelOpen     = true;
   panelTargetX  = width - PANEL_W;
-  if (g.image && g.image.length > 0 && !images[g.image]) {
+  if (g.image && !images[g.image]) {
     loadImage(g.image, img => { images[g.image] = img; }, () => { images[g.image] = null; });
   }
 }
@@ -975,43 +800,10 @@ function navigatePanel(dir) {
   const ni   = idx + dir;
   if (ni >= 0 && ni < list.length) {
     selectedGenre = list[ni];
-    if (selectedGenre.image && selectedGenre.image.length > 0 && !images[selectedGenre.image]) {
-      loadImage(selectedGenre.image, img => { images[selectedGenre.image] = img; }, () => { images[selectedGenre.image] = null; });
+    if (selectedGenre.image && !images[selectedGenre.image]) {
+      loadImage(selectedGenre.image,
+        img => { images[selectedGenre.image] = img; },
+        ()  => { images[selectedGenre.image] = null; });
     }
   }
 }
-
-// ═══════════════════════════════════════════════════════════════
-// CSV IMPORT
-// ═══════════════════════════════════════════════════════════════
-function parseAndLoadCSV(text) {
-  const lines   = text.trim().split('\n');
-  const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
-  const parsed  = lines.slice(1).map(line => {
-    const vals = [];
-    let cur = '', inQ = false;
-    for (let ch of line) {
-      if (ch === '"') inQ = !inQ;
-      else if (ch === ',' && !inQ) { vals.push(cur); cur = ''; }
-      else cur += ch;
-    }
-    vals.push(cur);
-    const obj = {};
-    headers.forEach((h, i) => { obj[h] = (vals[i] || '').trim(); });
-    obj.id          = parseInt(obj.id)  || 0;
-    obj.row         = parseInt(obj.row) || 1;
-    obj.col         = parseInt(obj.col) || 1;
-    obj.photoCredit = obj.photocredit || obj.photoCredit || '';
-    obj.photoDate   = obj.photodate   || obj.photoDate   || '';
-    obj.imageDesc   = obj.imagedesc   || obj.imageDesc   || '';
-    return obj;
-  }).filter(o => o.id > 0);
-  return parsed;
-}
-
-window.loadGenresFromCSV = function(text) {
-  GENRES = parseAndLoadCSV(text);
-  images = {};
-  buildCells();
-  resizeCanvas(windowWidth, totalH + HDR_H + SEP_H + LEG_H + 10);
-};
